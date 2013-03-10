@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class EntityDaoImpl<T extends Entity> implements EntityDao<T> {
 

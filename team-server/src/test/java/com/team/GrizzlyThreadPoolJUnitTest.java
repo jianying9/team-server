@@ -12,7 +12,7 @@ import org.junit.Test;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class GrizzlyThreadPoolJUnitTest {
     

@@ -11,7 +11,7 @@ import org.apache.hadoop.hbase.client.Put;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class UpdateDataHandlerImpl extends AbstractDaoHandler implements UpdateHandler {
 

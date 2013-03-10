@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 次要参数处理类,丢弃空字符
  *
- * @author zoe
+ * @author aladdin
  */
 public class MinorParameterDiscardEmptyHandlerImpl implements MinorParameterHandler {
 

@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @Singleton
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

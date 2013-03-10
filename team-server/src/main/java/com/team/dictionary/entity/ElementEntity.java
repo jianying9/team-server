@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 数据元素
  *
- * @author zoe
+ * @author aladdin
  */
 @DaoConfig(
 tableName = "Element",

@@ -6,7 +6,7 @@ import com.wolf.framework.service.parameter.type.TypeHandler;
 /**
  * filed处理抽象类
  *
- * @author zoe
+ * @author aladdin
  */
 public abstract class AbstractFieldHandler {
 

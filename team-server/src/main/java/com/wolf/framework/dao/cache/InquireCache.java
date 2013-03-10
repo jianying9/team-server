@@ -6,7 +6,7 @@ import com.wolf.framework.dao.condition.InquireContext;
 /**
  * 查询集合查询结果缓存管理对象
  *
- * @author neslon, zoe
+ * @author neslon, aladdin
  */
 public interface InquireCache {
 

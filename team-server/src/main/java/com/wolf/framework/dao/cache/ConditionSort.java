@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class ConditionSort implements Comparator<Condition> {
 

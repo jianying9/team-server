@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * 个人消息
  *
- * @author zoe
+ * @author aladdin
  */
 @DaoConfig(
 tableName = "Message")

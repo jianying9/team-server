@@ -3,7 +3,7 @@ package com.wolf.framework.service;
 /**
  * 请求封装参数类型
  *
- * @author zoe
+ * @author aladdin
  */
 public enum ResponseTypeEnum {
 

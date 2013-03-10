@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 用户描述实现动态数据字典的接口
  *
- * @author zoe
+ * @author aladdin
  */
 @Target(value = {ElementType.TYPE})
 @Retention(value = RetentionPolicy.RUNTIME)

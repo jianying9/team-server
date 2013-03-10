@@ -2,7 +2,7 @@ package com.wolf.framework.dao.annotation;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public enum IndexTypeEnum {
 

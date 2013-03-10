@@ -5,7 +5,7 @@ import com.wolf.framework.utils.StringUtils;
 /**
  * 长度为2048的字符
  *
- * @author zoe
+ * @author aladdin
  */
 public final class Char2048TypeHandlerImpl extends AbstractCharTypeHandler implements TypeHandler {
 

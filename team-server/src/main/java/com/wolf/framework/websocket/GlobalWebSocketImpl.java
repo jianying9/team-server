@@ -7,7 +7,7 @@ import com.wolf.framework.session.Session;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class GlobalWebSocketImpl extends DefaultWebSocket implements GlobalWebSocket {
 

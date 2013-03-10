@@ -8,7 +8,7 @@ import org.apache.lucene.store.BufferedIndexInput;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class DfsIndexInput extends BufferedIndexInput {
 

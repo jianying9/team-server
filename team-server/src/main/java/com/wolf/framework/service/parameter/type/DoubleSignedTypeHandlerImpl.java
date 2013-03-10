@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * DOUBLE有符号类型 -9999999999999999.999999到9999999999999999.999999
  *
- * @author zoe
+ * @author aladdin
  */
 public final class DoubleSignedTypeHandlerImpl extends AbstractNumberTypeHandler implements TypeHandler {
 

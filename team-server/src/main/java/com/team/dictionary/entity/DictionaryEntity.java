@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 数据字典
  *
- * @author zoe
+ * @author aladdin
  */
 @DaoConfig(
 tableName = "Dictionary",

@@ -2,7 +2,7 @@ package com.team.config;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class ActionNames {
     

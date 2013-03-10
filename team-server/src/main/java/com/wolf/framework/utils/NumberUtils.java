@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class NumberUtils {
 

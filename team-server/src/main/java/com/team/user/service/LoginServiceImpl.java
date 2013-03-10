@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @ServiceConfig(
         actionName = ActionNames.LOGIN,

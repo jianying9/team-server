@@ -3,7 +3,7 @@ package com.wolf.framework.service.parameter.filter;
 /**
  * 转义过滤
  *
- * @author zoe
+ * @author aladdin
  */
 public final class EscapeFilterImpl implements Filter {
 

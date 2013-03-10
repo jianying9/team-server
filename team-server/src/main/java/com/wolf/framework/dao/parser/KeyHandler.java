@@ -2,7 +2,7 @@ package com.wolf.framework.dao.parser;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface KeyHandler {
 

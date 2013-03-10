@@ -3,7 +3,7 @@ package com.wolf.framework.service.parameter.filter;
 /**
  * field字符过滤
  *
- * @author zoe
+ * @author aladdin
  */
 public interface Filter {
 

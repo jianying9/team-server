@@ -3,7 +3,7 @@ package com.wolf.framework.session;
 /**
  * 保存登录人员的信息
  *
- * @author zoe
+ * @author aladdin
  */
 public interface Session {
 

@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class InsertCacheHandlerImpl<T extends Entity> implements InsertHandler<T> {
     

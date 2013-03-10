@@ -9,7 +9,7 @@ import com.wolf.framework.worker.MessageContext;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 //@ServiceConfig(
 //        actionName = ActionNames.CLEAN_INVOLID_SESSION,

@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class MultiBroadcastMessageHandlerImpl implements WorkHandler {
 

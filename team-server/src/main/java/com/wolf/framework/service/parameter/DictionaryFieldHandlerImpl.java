@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * 数据字典类型处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class DictionaryFieldHandlerImpl extends AbstractFieldHandler implements FieldHandler {
 

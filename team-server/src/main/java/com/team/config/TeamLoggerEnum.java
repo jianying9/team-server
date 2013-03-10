@@ -4,7 +4,7 @@ import com.wolf.framework.logger.LoggerType;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public enum TeamLoggerEnum implements LoggerType{
     

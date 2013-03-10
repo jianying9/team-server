@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * 正则类型验证抽象类
  *
- * @author zoe
+ * @author aladdin
  */
 public abstract class AbstractDateTypeHandler extends AbstractTypeHandler {
 

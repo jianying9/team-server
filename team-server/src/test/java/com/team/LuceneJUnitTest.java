@@ -3,7 +3,9 @@ package com.team;
 import com.wolf.framework.lucene.HdfsDirectory;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -20,6 +22,8 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Filter;
+import org.apache.lucene.search.FuzzyQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
@@ -35,7 +39,7 @@ import org.junit.Test;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class LuceneJUnitTest {
 
@@ -58,6 +62,31 @@ public class LuceneJUnitTest {
     public void tearDown() {
     }
     //
+
+//    @Test
+    public void testFilter() throws IOException {
+        Configuration config = new Configuration();
+        String rootPath = "hdfs://192.168.64.50:9000";
+        config.set("fs.default.name", rootPath);
+        FileSystem dfs = FileSystem.get(config);
+        Path src = new Path("/lucene/test");
+        src = new Path(src, "main");
+        Directory dir = new HdfsDirectory(dfs, src);
+        IndexReader indexReader = DirectoryReader.open(dir);
+        IndexSearcher searcher = new IndexSearcher(indexReader);
+        Set<String> deleteIdSet = new HashSet<String>(2, 1);
+        deleteIdSet.add("4");
+        Filter filter = new TestFilter(deleteIdSet);
+//        Filter filter = new FieldValueFilter("id");
+        FuzzyQuery fuzzyQuery = new FuzzyQuery(new Term("content", "beautiful"));
+        TopDocs results = searcher.search(fuzzyQuery, filter, 5);
+        ScoreDoc[] hits = results.scoreDocs;
+        Document doc;
+        for (int index = 0; index < hits.length; index++) {
+            doc = searcher.doc(hits[index].doc);
+            System.out.println(doc.toString());
+        }
+    }
 
 //    @Test
     public void testHdfsWrite() throws IOException {
@@ -87,6 +116,8 @@ public class LuceneJUnitTest {
         doc = new Document();
         field = new StringField("key", "2", Field.Store.YES);
         doc.add(field);
+        field = new StringField("id", "2", Field.Store.YES);
+        doc.add(field);
         field = new StringField("nickName", "刘建樱", Field.Store.YES);
         doc.add(field);
         field = new StringField("userEmail", "liujianying@qq.com", Field.Store.YES);
@@ -110,6 +141,8 @@ public class LuceneJUnitTest {
         //
         doc = new Document();
         field = new StringField("key", "4", Field.Store.YES);
+        doc.add(field);
+        field = new StringField("id", "4", Field.Store.YES);
         doc.add(field);
         field = new StringField("nickName", "刘榕芳", Field.Store.YES);
         doc.add(field);
@@ -306,7 +339,7 @@ public class LuceneJUnitTest {
         String rootPath = "hdfs://192.168.64.50:9000";
         config.set("fs.default.name", rootPath);
         FileSystem dfs = FileSystem.get(config);
-        Path src = new Path("/lucene/user/main");
+        Path src = new Path("/lucene");
         dfs.delete(src, true);
     }
 

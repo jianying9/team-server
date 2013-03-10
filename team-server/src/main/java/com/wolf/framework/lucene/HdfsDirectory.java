@@ -13,7 +13,7 @@ import org.apache.lucene.store.Lock;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class HdfsDirectory extends Directory {
 

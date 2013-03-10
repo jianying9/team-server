@@ -3,7 +3,7 @@ package com.wolf.framework.dao.update;
 import com.wolf.framework.dao.parser.ColumnHandler;
 import com.wolf.framework.dao.parser.KeyHandler;
 import com.wolf.framework.lucene.HdfsLucene;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.lucene.document.Document;
@@ -13,7 +13,7 @@ import org.apache.lucene.index.Term;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class UpdateIndexHandlerImpl implements UpdateHandler {
 
@@ -37,15 +37,16 @@ public class UpdateIndexHandlerImpl implements UpdateHandler {
         String columnValue = entityMap.get(columnName);
         if (columnValue != null) {
             //重建索引
-            String keyName = this.keyHandler.getName();
             //构造key
-            Term term = new Term(keyName, rowKey);
+            Term term = new Term(HdfsLucene.KEY_NAME, rowKey);
             //构造变化文档
             Document doc = new Document();
-            Field field = new StringField(columnName, columnValue, Field.Store.NO);
+            Field field = new StringField(HdfsLucene.KEY_NAME, rowKey, Field.Store.YES);
+            doc.add(field);
+            field = new StringField(columnName, columnValue, Field.Store.NO);
             doc.add(field);
             //保存
-            this.hdfsLucene.updateDocument(term, doc);
+            this.hdfsLucene.updateDocument(doc);
         }
         return rowKey;
     }
@@ -62,22 +63,24 @@ public class UpdateIndexHandlerImpl implements UpdateHandler {
         Document doc;
         Term term;
         Field field;
-        Map<Term, Document> updateIndexMap = new HashMap<Term, Document>(entityMapList.size(), 1);
+        List<Document> docList = new ArrayList<Document>(entityMapList.size());
         for (Map<String, String> entityMap : entityMapList) {
             columnValue = entityMap.get(columnName);
             //如果存在索引列更新，则将该文档放入待更新集合
             if (columnValue != null) {
                 rowKey = entityMap.get(keyName);
                 doc = new Document();
-                term = new Term(keyName, rowKey);
+                term = new Term(HdfsLucene.KEY_NAME, rowKey);
+                field = new StringField(HdfsLucene.KEY_NAME, rowKey, Field.Store.YES);
+                doc.add(field);
                 field = new StringField(columnName, columnValue, Field.Store.NO);
                 doc.add(field);
-                updateIndexMap.put(term, doc);
+                docList.add(doc);
             }
         }
         //保存
-        if (!updateIndexMap.isEmpty()) {
-            this.hdfsLucene.updateDocument(updateIndexMap);
+        if (!docList.isEmpty()) {
+            this.hdfsLucene.updateDocument(docList);
         }
     }
 }

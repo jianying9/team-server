@@ -3,7 +3,7 @@ package com.wolf.framework.service;
 /**
  * 响应数据页数类型
  *
- * @author zoe
+ * @author aladdin
  */
 public enum ResponseDataTypeEnum {
 

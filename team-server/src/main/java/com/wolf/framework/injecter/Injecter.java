@@ -2,7 +2,7 @@ package com.wolf.framework.injecter;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface Injecter {
 

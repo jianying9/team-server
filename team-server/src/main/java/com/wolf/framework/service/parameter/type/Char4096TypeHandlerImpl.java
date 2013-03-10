@@ -5,7 +5,7 @@ import com.wolf.framework.utils.StringUtils;
 /**
  * 长度为4096的字符
  *
- * @author zoe
+ * @author aladdin
  */
 public final class Char4096TypeHandlerImpl extends AbstractCharTypeHandler implements TypeHandler {
 

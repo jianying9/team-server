@@ -35,6 +35,7 @@ import com.wolf.framework.dao.update.UpdateInquireCacheHandlerImpl;
 import com.wolf.framework.dao.update.UpdateMultiIndexHandlerImpl;
 import com.wolf.framework.hbase.HTableHandler;
 import com.wolf.framework.logger.LogFactory;
+import com.wolf.framework.lucene.DeleteFilterCache;
 import com.wolf.framework.lucene.HdfsLucene;
 import com.wolf.framework.lucene.HdfsLuceneImpl;
 import com.wolf.framework.task.TaskExecutor;
@@ -52,7 +53,7 @@ import org.slf4j.Logger;
 /**
  * 实体数据访问对象创建类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class EntityDaoBuilder<T extends Entity> {
 
@@ -131,7 +132,8 @@ public final class EntityDaoBuilder<T extends Entity> {
                 TaskExecutor taskExecutor = this.entityDaoContext.getTaskExecutor();
                 String ip = this.entityDaoContext.getIP();
                 Analyzer analyzer = this.entityDaoContext.getAnalyzer();
-                hdfsLucene = new HdfsLuceneImpl(tableIndexPath, fileSystem, iwc, taskExecutor, ip, analyzer);
+                DeleteFilterCache deleteFilterCache = this.entityDaoContext.getDeleteFilterCache();
+                hdfsLucene = new HdfsLuceneImpl(tableIndexPath, fileSystem, iwc, taskExecutor, ip, analyzer, deleteFilterCache);
             } catch (IOException ex) {
                 Logger logger = LogFactory.getLogger(FrameworkLoggerEnum.DAO);
                 logger.error("DAO:create table:{} index directory error...see log", this.tableName);
@@ -221,7 +223,6 @@ public final class EntityDaoBuilder<T extends Entity> {
             //构造删除数据单个索引处理对象
             deleteHandler = new DeleteIndexHandlerImpl(
                     deleteHandler,
-                    this.keyHandler,
                     hdfsLucene);
         }
         //----------------------------构造删、改实体缓存处理对象
@@ -245,9 +246,7 @@ public final class EntityDaoBuilder<T extends Entity> {
         if (useIndex) {
             //使用索引
             //构造根据条件查询数据库key集合应用索引处理对象
-            inquireKeyByConditionHandler = new InquireKeyByConditionFromIndexHandlerImpl(
-                    this.keyHandler,
-                    hdfsLucene);
+            inquireKeyByConditionHandler = new InquireKeyByConditionFromIndexHandlerImpl(hdfsLucene);
             //构造根据条件查询缓存key集合应用索引处理对象
             inquireKeyByConditionHandler = new InquireKeyByConditionFromCacheHandlerImpl(
                     this.tableName,

@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class WebSocketMessageContextImpl implements FrameworkMessageContext {
 

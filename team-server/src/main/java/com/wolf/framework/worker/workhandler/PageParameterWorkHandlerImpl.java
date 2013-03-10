@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 分页参数处理
  *
- * @author zoe
+ * @author aladdin
  */
 public class PageParameterWorkHandlerImpl implements WorkHandler {
 

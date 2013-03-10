@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 
 /**
  *
- * @author neslon, zoe
+ * @author neslon, aladdin
  */
 public final class InquireCacheImpl implements InquireCache {
 

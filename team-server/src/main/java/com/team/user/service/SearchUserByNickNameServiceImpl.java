@@ -13,7 +13,7 @@ import com.wolf.framework.worker.MessageContext;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @ServiceConfig(
         actionName = ActionNames.SEARCH_USER_BY_NICKNAME,

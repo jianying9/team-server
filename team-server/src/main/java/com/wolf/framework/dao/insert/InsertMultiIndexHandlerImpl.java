@@ -13,7 +13,7 @@ import org.apache.lucene.document.StringField;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class InsertMultiIndexHandlerImpl<T extends Entity> implements InsertHandler<T> {
 
@@ -35,12 +35,11 @@ public class InsertMultiIndexHandlerImpl<T extends Entity> implements InsertHand
         T t = this.insertHandler.insert(entityMap);
         //获取rowkey,开始建立索引
         String rowKey = t.getKeyValue();
-        String keyName = this.keyHandler.getName();
         String columnValue;
         String columnName;
         //保存key
         Document doc = new Document();
-        Field field = new StringField(keyName, rowKey, Field.Store.YES);
+        Field field = new StringField(HdfsLucene.KEY_NAME, rowKey, Field.Store.YES);
         doc.add(field);
         //建立索引
         for (ColumnHandler columnHandler : indexColumnHandlerList) {
@@ -68,7 +67,7 @@ public class InsertMultiIndexHandlerImpl<T extends Entity> implements InsertHand
             doc = new Document();
             //保存key
             rowKey = entityMap.get(keyName);
-            field = new StringField(keyName, rowKey, Field.Store.YES);
+            field = new StringField(HdfsLucene.KEY_NAME, rowKey, Field.Store.YES);
             doc.add(field);
             //建立索引
             for (ColumnHandler columnHandler : indexColumnHandlerList) {

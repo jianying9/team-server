@@ -2,6 +2,7 @@ package com.wolf.framework.dao;
 
 import com.wolf.framework.dao.cache.InquireCache;
 import com.wolf.framework.hbase.HTableHandler;
+import com.wolf.framework.lucene.DeleteFilterCache;
 import com.wolf.framework.task.TaskExecutor;
 import java.util.Map;
 import net.sf.ehcache.CacheManager;
@@ -11,11 +12,13 @@ import org.apache.lucene.index.IndexWriterConfig;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface EntityDaoContext<T extends Entity> {
 
     public InquireCache getInquireCache();
+    
+    public DeleteFilterCache getDeleteFilterCache();
 
     public CacheManager getCacheManager();
 

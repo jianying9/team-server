@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class DictionaryArrayFieldHandlerImpl extends AbstractFieldHandler implements FieldHandler {
 

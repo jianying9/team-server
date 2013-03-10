@@ -7,7 +7,7 @@ import javax.transaction.UserTransaction;
 /**
  * 事物处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public class TransactionWorkHandlerImpl implements WorkHandler {
 

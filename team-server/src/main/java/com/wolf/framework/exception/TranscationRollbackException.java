@@ -4,7 +4,7 @@ import com.wolf.framework.config.ResponseFlagType;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class TranscationRollbackException extends RuntimeException {
 

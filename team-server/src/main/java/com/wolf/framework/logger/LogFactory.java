@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 根据LoggerNameEnum枚举,获取对应的logger对象.在使用之前,请先在LoggerNameEnum中维护每个logger的枚举,以及该枚举对应的name
  *
- * @author zoe
+ * @author aladdin
  */
 public final class LogFactory {
 

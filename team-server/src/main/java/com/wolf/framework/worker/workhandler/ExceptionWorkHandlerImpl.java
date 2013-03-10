@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 /**
  * 事物处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public class ExceptionWorkHandlerImpl implements WorkHandler {
 

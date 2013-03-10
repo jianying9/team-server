@@ -5,7 +5,7 @@ import com.wolf.framework.service.parameter.FieldTypeClassEnum;
 /**
  * 数字类型验证抽象类
  *
- * @author zoe
+ * @author aladdin
  */
 public abstract class AbstractNumberTypeHandler extends AbstractTypeHandler {
 

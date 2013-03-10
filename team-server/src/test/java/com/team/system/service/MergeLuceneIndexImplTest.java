@@ -4,26 +4,16 @@ import com.team.AbstractTeamTest;
 import com.team.config.ActionNames;
 import com.wolf.framework.test.TestHandler;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class MergeLuceneIndexImplTest extends AbstractTeamTest {
 
     public MergeLuceneIndexImplTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     @Before

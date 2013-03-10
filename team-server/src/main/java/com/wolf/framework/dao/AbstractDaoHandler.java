@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 /**
  * dynamic entity dao
  *
- * @author zoe
+ * @author aladdin
  */
 public abstract class AbstractDaoHandler<T extends Entity> {
 

@@ -3,7 +3,7 @@ package com.wolf.framework.service.parameter.filter;
 /**
  * 过滤类型
  *
- * @author zoe
+ * @author aladdin
  */
 public enum FilterTypeEnum {
 

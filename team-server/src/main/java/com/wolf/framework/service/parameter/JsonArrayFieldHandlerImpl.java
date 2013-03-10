@@ -6,7 +6,7 @@ import com.wolf.framework.service.parameter.type.TypeHandler;
 /**
  * jsonArray类型处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class JsonArrayFieldHandlerImpl extends AbstractFieldHandler implements FieldHandler {
 

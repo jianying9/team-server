@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 /**
  * 负责解析annotation ExtendedEntityConfig
  *
- * @author zoe
+ * @author aladdin
  */
 public class ParametersConfigParser {
 

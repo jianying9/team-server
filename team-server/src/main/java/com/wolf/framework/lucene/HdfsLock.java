@@ -6,7 +6,7 @@ import org.apache.lucene.store.Lock;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class HdfsLock extends Lock {
 

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 验证类对象工厂
  *
- * @author zoe
+ * @author aladdin
  */
 public final class TypeHandlerFactoryImpl implements TypeHandlerFactory {
 

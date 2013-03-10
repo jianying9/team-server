@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * 一字节带符号类型-99到99
  *
- * @author zoe
+ * @author aladdin
  */
 public final class TinyIntSignedTypeHandlerImpl extends AbstractNumberTypeHandler implements TypeHandler {
 

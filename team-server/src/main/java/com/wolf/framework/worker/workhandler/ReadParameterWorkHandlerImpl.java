@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 /**
  * 必要参数处理
  *
- * @author zoe
+ * @author aladdin
  */
 public class ReadParameterWorkHandlerImpl implements WorkHandler {
 

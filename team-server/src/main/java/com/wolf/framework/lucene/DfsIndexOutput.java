@@ -11,7 +11,7 @@ import org.apache.lucene.store.BufferedIndexOutput;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class DfsIndexOutput extends BufferedIndexOutput {
 

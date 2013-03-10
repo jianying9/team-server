@@ -2,7 +2,7 @@ package com.wolf.framework.config;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public enum DefaultResponseFlagEnum implements ResponseFlagType {
 

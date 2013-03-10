@@ -50,7 +50,7 @@ import org.slf4j.Logger;
 /**
  * 全局上下文对象构造函数抽象类
  *
- * @author zoe
+ * @author aladdin
  */
 public abstract class AbstractApplicationContextBuilder<T extends Entity, K extends Service, E extends DynamicDictionaryHandler<T>> {
 

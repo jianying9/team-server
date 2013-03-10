@@ -5,7 +5,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 /**
  * 工作处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public interface WorkHandler {
 

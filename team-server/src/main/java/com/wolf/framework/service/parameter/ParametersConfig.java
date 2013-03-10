@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 参数信息配置
  *
- * @author zoe
+ * @author aladdin
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

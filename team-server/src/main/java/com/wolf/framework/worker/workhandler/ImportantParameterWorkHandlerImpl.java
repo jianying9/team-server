@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 必要参数处理
  *
- * @author zoe
+ * @author aladdin
  */
 public class ImportantParameterWorkHandlerImpl implements WorkHandler {
 

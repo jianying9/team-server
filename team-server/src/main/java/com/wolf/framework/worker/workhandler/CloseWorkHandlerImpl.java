@@ -7,7 +7,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 /**
  * session处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public class CloseWorkHandlerImpl implements WorkHandler {
 

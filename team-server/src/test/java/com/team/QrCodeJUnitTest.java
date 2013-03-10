@@ -15,7 +15,7 @@ import org.junit.Test;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class QrCodeJUnitTest {
 
@@ -43,7 +43,7 @@ public class QrCodeJUnitTest {
     public void hello() throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode("http://192.168.64.50/mobile", BarcodeFormat.QR_CODE, 200, 200);
-        File file = new File("/home/zoe/1.jpg");
+        File file = new File("/home/aladdin/1.jpg");
         MatrixToImageWriter.writeToFile(bitMatrix, "JPG", file);
     }
 }

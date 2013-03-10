@@ -5,7 +5,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class ColumnHandlerImpl implements ColumnHandler {
     

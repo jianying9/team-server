@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface InquireResult<T extends Entity> {
 

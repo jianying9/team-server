@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 实体处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class ParametersHandlerImpl implements ParametersHandler {
 

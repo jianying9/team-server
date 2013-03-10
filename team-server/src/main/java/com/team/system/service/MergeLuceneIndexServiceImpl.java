@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @ServiceConfig(
         actionName = ActionNames.MERGE_LUCENE_INDEX,
@@ -21,7 +21,7 @@ public class MergeLuceneIndexServiceImpl implements Service {
     @Override
     public void execute(MessageContext messageContext) {
         List<HdfsLucene> hdfsLuceneList = EntityDaoBuilder.ALL_HDFS_LUCENE;
-        if (hdfsLuceneList != null && !hdfsLuceneList.isEmpty()) {
+        if (hdfsLuceneList.isEmpty() == false) {
             for (HdfsLucene hdfsLucene : hdfsLuceneList) {
                 hdfsLucene.tryToMerge();
             }

@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class JdkThreadPoolJUnitTest {
     

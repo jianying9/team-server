@@ -7,26 +7,16 @@ import com.wolf.framework.utils.SecurityUtils;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class RegisterServiceImplTest extends AbstractTeamTest {
 
     public RegisterServiceImplTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
     
     @Before
@@ -40,8 +30,8 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
     @Test
     public void testRegister() {
         Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
-        parameterMap.put("userEmail", "3@91yong.com");
-        parameterMap.put("nickName", "3");
+        parameterMap.put("userEmail", "10@91yong.com");
+        parameterMap.put("nickName", "10");
         parameterMap.put("password", SecurityUtils.encryptByMd5("000000"));
         TestHandler.execute(ActionNames.REGISTER, parameterMap);
     }

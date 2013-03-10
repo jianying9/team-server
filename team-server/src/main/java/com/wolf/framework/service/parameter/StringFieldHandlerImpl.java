@@ -7,7 +7,7 @@ import com.wolf.framework.service.parameter.type.TypeHandler;
 /**
  * 字符类型处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class StringFieldHandlerImpl extends AbstractFieldHandler implements FieldHandler {
 

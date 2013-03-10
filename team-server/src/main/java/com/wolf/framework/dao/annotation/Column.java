@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @Target(value = {ElementType.FIELD})
 @Retention(value = RetentionPolicy.RUNTIME)

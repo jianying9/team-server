@@ -9,7 +9,7 @@ import com.wolf.framework.service.parameter.type.TypeHandlerFactoryImpl;
 /**
  * 全局信息构造类
  *
- * @author zoe
+ * @author aladdin
  */
 public class FieldContextBuilderImpl implements FieldContextBuilder {
 

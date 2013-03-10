@@ -6,7 +6,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 /**
  * 次要参数处理类,保留空字符
  *
- * @author zoe
+ * @author aladdin
  */
 public class MinorParameterWorkHandlerImpl implements WorkHandler {
 

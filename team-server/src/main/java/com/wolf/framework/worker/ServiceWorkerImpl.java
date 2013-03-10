@@ -5,7 +5,7 @@ import com.wolf.framework.worker.workhandler.WorkHandler;
 /**
  * 服务工作对象接口
  *
- * @author zoe
+ * @author aladdin
  */
 public final class ServiceWorkerImpl implements ServiceWorker {
 

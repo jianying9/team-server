@@ -12,7 +12,7 @@ import org.apache.hadoop.hbase.client.Put;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class InsertDataHandlerImpl<T extends Entity> extends AbstractDaoHandler<T> implements InsertHandler<T> {
 

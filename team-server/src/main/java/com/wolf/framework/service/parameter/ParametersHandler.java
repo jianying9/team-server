@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * 参数处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public interface ParametersHandler {
 

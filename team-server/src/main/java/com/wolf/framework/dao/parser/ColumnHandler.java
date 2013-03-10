@@ -4,7 +4,7 @@ import com.wolf.framework.dao.annotation.IndexTypeEnum;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface ColumnHandler {
     

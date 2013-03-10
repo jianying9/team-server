@@ -7,7 +7,7 @@ import com.wolf.framework.service.parameter.type.FieldTypeEnum;
 /**
  * 画板指令
  *
- * @author zoe
+ * @author aladdin
  */
 @ParametersConfig()
 public class CanvasParameter {

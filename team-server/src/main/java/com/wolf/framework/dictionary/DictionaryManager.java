@@ -4,7 +4,7 @@ import java.util.Set;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface DictionaryManager {
 

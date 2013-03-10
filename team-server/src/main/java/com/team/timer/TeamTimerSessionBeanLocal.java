@@ -4,7 +4,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @Local
 public interface TeamTimerSessionBeanLocal {

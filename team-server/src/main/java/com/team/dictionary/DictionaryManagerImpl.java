@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class DictionaryManagerImpl implements DictionaryManager {
 

@@ -5,7 +5,7 @@ import com.wolf.framework.utils.StringUtils;
 /**
  * 长度为512的字符
  *
- * @author zoe
+ * @author aladdin
  */
 public final class Char512TypeHandlerImpl extends AbstractCharTypeHandler implements TypeHandler {
 

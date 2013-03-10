@@ -4,7 +4,7 @@ import org.apache.hadoop.fs.FSDataInputStream;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class Descriptor {
 

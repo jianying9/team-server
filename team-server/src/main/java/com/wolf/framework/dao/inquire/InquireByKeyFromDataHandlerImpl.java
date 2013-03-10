@@ -12,7 +12,7 @@ import org.apache.hadoop.hbase.client.Result;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class InquireByKeyFromDataHandlerImpl<T extends Entity> extends AbstractDaoHandler<T> implements InquireByKeyHandler<T> {
 

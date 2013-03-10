@@ -2,7 +2,7 @@ package com.wolf.framework.logger;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface LoggerType {
 

@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 好友关系表
  *
- * @author zoe
+ * @author aladdin
  */
 @DaoConfig(
 tableName = "Friend",

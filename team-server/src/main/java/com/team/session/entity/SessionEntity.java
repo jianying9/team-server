@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * session
  *
- * @author zoe
+ * @author aladdin
  */
 //@DaoConfig(
 //tableName = "Session")

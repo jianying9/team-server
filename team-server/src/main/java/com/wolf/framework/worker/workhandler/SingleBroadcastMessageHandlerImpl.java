@@ -6,7 +6,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class SingleBroadcastMessageHandlerImpl implements WorkHandler {
 

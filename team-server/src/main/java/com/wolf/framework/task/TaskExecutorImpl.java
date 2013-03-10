@@ -1,6 +1,5 @@
 package com.wolf.framework.task;
 
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -9,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class TaskExecutorImpl implements TaskExecutor {
 

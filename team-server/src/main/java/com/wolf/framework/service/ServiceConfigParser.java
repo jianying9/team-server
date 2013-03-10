@@ -45,7 +45,7 @@ import org.slf4j.Logger;
 /**
  * 负责解析annotation ServiceConfig
  *
- * @author zoe
+ * @author aladdin
  */
 public class ServiceConfigParser<K extends Service, T extends Entity> {
 

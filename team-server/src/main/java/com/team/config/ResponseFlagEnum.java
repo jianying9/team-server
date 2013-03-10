@@ -4,7 +4,7 @@ import com.wolf.framework.config.*;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public enum ResponseFlagEnum implements ResponseFlagType {
 

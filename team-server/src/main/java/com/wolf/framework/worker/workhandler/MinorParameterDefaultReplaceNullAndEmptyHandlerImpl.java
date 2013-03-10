@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * 次要参数处理类,次要参数如果为null或则空字符串，用default值代替
  *
- * @author zoe
+ * @author aladdin
  */
 public class MinorParameterDefaultReplaceNullAndEmptyHandlerImpl implements MinorParameterHandler {
 

@@ -10,7 +10,7 @@ import net.sf.ehcache.Element;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class InquireByKeyFromCacheHandlerImpl<T extends Entity> implements InquireByKeyHandler<T> {
 

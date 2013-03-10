@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 /**
  * 时间处理辅助类,用于Date类型和String类型时间转换
  *
- * @author zoe
+ * @author aladdin
  */
 public final class TimeUtils {
 

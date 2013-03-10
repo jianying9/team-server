@@ -7,7 +7,7 @@ import org.apache.hadoop.hbase.client.Scan;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface HTableHandler {
 

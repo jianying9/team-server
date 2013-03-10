@@ -3,7 +3,7 @@ package com.wolf.framework.service.parameter.filter;
 /**
  * 过滤对象工厂类
  *
- * @author zoe
+ * @author aladdin
  */
 public interface FilterFactory {
 

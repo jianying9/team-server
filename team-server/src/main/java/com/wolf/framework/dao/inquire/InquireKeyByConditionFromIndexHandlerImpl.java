@@ -3,7 +3,6 @@ package com.wolf.framework.dao.inquire;
 import com.wolf.framework.dao.condition.Condition;
 import com.wolf.framework.dao.condition.InquireContext;
 import com.wolf.framework.dao.condition.OperateTypeEnum;
-import com.wolf.framework.dao.parser.KeyHandler;
 import com.wolf.framework.lucene.DocumentResult;
 import com.wolf.framework.lucene.HdfsLucene;
 import java.util.ArrayList;
@@ -18,15 +17,13 @@ import org.apache.lucene.search.TermQuery;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class InquireKeyByConditionFromIndexHandlerImpl implements InquireKeyByConditionHandler {
 
-    private final KeyHandler keyHandler;
     private final HdfsLucene hdfsLucene;
 
-    public InquireKeyByConditionFromIndexHandlerImpl(KeyHandler keyHandler, HdfsLucene hdfsLucene) {
-        this.keyHandler = keyHandler;
+    public InquireKeyByConditionFromIndexHandlerImpl(HdfsLucene hdfsLucene) {
         this.hdfsLucene = hdfsLucene;
     }
 
@@ -68,7 +65,6 @@ public final class InquireKeyByConditionFromIndexHandlerImpl implements InquireK
         }
         //查询
         List<String> keyList;
-        String keyName = this.keyHandler.getName();
         DocumentResult documentResult = this.hdfsLucene.searchAfter(inquireContext.getLastPageIndex(), query, inquireContext.getPageSize());
         if (documentResult.isEmpty()) {
             keyList = new ArrayList<String>(0);
@@ -77,7 +73,7 @@ public final class InquireKeyByConditionFromIndexHandlerImpl implements InquireK
             String keyValue;
             keyList = new ArrayList<String>(docList.size());
             for (Document document : docList) {
-                keyValue = document.get(keyName);
+                keyValue = document.get(HdfsLucene.KEY_NAME);
                 keyList.add(keyValue);
             }
         }

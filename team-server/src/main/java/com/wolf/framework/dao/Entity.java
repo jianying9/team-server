@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * 所有实体抽象父类
  *
- * @author zoe
+ * @author aladdin
  */
 public abstract class Entity {
 

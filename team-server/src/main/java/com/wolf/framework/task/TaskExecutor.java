@@ -2,7 +2,7 @@ package com.wolf.framework.task;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface TaskExecutor {
 

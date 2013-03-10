@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @LocalServiceConfig(
         interfaceInfo = UserLocalService.class,

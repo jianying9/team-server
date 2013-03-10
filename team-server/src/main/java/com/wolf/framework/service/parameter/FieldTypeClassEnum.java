@@ -3,7 +3,7 @@ package com.wolf.framework.service.parameter;
 /**
  * 字段类型所属类别
  *
- * @author zoe
+ * @author aladdin
  */
 public enum FieldTypeClassEnum {
     //整数

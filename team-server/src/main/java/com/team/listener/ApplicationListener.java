@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 /**
  * 应用程序全局信息初始化
  *
- * @author zoe
+ * @author aladdin
  */
 public class ApplicationListener implements ServletContextListener {
 

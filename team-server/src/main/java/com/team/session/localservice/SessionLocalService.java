@@ -4,7 +4,7 @@ import com.team.session.entity.SessionEntity;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface SessionLocalService {
 

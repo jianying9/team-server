@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class InjecterListImpl implements Injecter {
 

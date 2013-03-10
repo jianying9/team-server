@@ -4,7 +4,7 @@ import com.wolf.framework.worker.MessageContext;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface Service {
 

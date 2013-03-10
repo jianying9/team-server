@@ -3,7 +3,7 @@ package com.wolf.framework.service.parameter.type;
 /**
  * entity filed type
  *
- * @author zoe
+ * @author aladdin
  */
 public enum FieldTypeEnum {
     //TinyIntSigned [-128,127]

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 /**
  * entity filed annotation，用于描述entity中各个field的信息
  *
- * @author zoe
+ * @author aladdin
  */
 @Target(value = {ElementType.FIELD})
 @Retention(value = RetentionPolicy.RUNTIME)

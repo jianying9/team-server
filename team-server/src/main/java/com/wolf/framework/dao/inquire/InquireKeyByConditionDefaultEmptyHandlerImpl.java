@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class InquireKeyByConditionDefaultEmptyHandlerImpl implements InquireKeyByConditionHandler {
 

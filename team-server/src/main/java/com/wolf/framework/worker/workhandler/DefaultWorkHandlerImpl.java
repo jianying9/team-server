@@ -6,7 +6,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 /**
  * 默认处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public class DefaultWorkHandlerImpl implements WorkHandler {
 

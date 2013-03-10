@@ -6,7 +6,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 /**
  * JSON输出处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public class ResponseMessageWorkHandlerImpl implements WorkHandler {
 

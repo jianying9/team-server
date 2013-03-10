@@ -3,7 +3,7 @@ package com.wolf.framework.service.parameter.filter;
 /**
  * 安全过滤
  *
- * @author zoe
+ * @author aladdin
  */
 public final class SecurityFilterImpl implements Filter {
 

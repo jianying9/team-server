@@ -7,7 +7,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 /**
  * session读取及验证处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public class ValidateSessionWorkHandlerImpl implements WorkHandler {
 

@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * 生成json消息
- * @author zoe
+ * @author aladdin
  */
 public class CreateSingleJsonMessageHandlerImpl implements WorkHandler {
 

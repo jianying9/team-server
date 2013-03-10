@@ -7,7 +7,7 @@ import net.sf.ehcache.Cache;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class UpdateEntityCacheHandlerImpl implements UpdateHandler {
 

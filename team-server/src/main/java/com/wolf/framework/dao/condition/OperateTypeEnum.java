@@ -2,7 +2,7 @@ package com.wolf.framework.dao.condition;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public enum OperateTypeEnum {
 

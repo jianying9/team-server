@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 /**
  * 解析对象是否需要注入其他对象
  *
- * @author zoe
+ * @author aladdin
  */
 public class DaoInjecterImpl extends AbstractInjecter<DAO> implements Injecter {
 

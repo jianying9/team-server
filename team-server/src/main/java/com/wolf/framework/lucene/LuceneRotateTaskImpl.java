@@ -4,7 +4,7 @@ import com.wolf.framework.task.Task;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class LuceneRotateTaskImpl implements Task{
     

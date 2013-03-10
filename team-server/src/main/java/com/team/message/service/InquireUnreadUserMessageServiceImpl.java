@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 @ServiceConfig(
         actionName = ActionNames.INQUIRE_UNREAD_USER_MESSAGE,

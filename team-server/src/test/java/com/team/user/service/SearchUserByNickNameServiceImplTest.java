@@ -6,26 +6,16 @@ import com.wolf.framework.test.TestHandler;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class SearchUserByNickNameServiceImplTest extends AbstractTeamTest {
 
     public SearchUserByNickNameServiceImplTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     @Before

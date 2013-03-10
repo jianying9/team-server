@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class InquireResultImpl<T extends Entity> implements InquireResult {
 

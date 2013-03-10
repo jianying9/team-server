@@ -1,7 +1,7 @@
 package com.wolf.framework.utils;
 
 /**
- * @author zoe
+ * @author aladdin
  *
  */
 public final class StringUtils {

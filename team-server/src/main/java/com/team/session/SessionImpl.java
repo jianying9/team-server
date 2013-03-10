@@ -4,7 +4,7 @@ import com.wolf.framework.session.Session;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class SessionImpl implements Session{
     

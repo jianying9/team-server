@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * 四字节有符号类型-999999999到999999999
  *
- * @author zoe
+ * @author aladdin
  */
 public final class IntSignedTypeHandlerImpl extends AbstractNumberTypeHandler implements TypeHandler {
 

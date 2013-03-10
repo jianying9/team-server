@@ -2,7 +2,7 @@ package com.wolf.framework.service;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public enum MinorHandlerTypeEnum {
 

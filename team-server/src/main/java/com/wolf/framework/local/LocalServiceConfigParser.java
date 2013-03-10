@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 /**
  * 负责解析annotation ServiceConfig
  *
- * @author zoe
+ * @author aladdin
  */
 public final class LocalServiceConfigParser {
 

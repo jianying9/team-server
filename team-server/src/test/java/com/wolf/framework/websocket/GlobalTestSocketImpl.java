@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class GlobalTestSocketImpl implements GlobalWebSocket {
     

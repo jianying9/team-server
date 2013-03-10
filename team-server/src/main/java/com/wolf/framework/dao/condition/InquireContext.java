@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 查询条件
  *
- * @author zoe
+ * @author aladdin
  */
 public final class InquireContext {
 

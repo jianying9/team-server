@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  *
  *
- * @author zoe
+ * @author aladdin
  */
 @DaoConfig(
 tableName = "User",

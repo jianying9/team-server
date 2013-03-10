@@ -3,7 +3,7 @@ package com.wolf.framework.worker;
 /**
  * 服务工作对象接口
  *
- * @author zoe
+ * @author aladdin
  */
 public interface ServiceWorker {
 

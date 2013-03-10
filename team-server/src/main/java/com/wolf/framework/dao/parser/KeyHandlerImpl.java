@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class KeyHandlerImpl implements KeyHandler {
 

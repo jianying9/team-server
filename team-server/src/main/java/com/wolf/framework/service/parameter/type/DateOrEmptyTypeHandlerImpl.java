@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 /**
  * 时间类型YYYY-m-d,YYYY-MM-DD
  *
- * @author zoe
+ * @author aladdin
  */
 public final class DateOrEmptyTypeHandlerImpl extends AbstractDateTypeHandler implements TypeHandler {
 

@@ -9,7 +9,7 @@ import net.sf.ehcache.store.MemoryStoreEvictionPolicy;
 /**
  * ehcache default config
  *
- * @author zoe
+ * @author aladdin
  */
 public class DefaultCacheConfiguration {
 

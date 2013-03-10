@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 过滤对象工厂类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class FilterFactoryImpl implements FilterFactory {
 

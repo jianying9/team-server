@@ -5,7 +5,7 @@ import com.wolf.framework.dao.condition.InquireContext;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public interface InquireKeyByConditionHandler {
 

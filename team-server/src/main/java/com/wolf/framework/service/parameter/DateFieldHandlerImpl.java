@@ -6,7 +6,7 @@ import com.wolf.framework.service.parameter.type.TypeHandler;
 /**
  * 时间类型处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class DateFieldHandlerImpl extends AbstractFieldHandler implements FieldHandler {
 

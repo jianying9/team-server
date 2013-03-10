@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 /**
  * 时间类型YYYY-MM-DD HH:MM,YYYY-MM-DD HH:MM:SS,可以为空字符
  *
- * @author zoe
+ * @author aladdin
  */
 public final class DateTimeOrEmptyTypeHanderImpl extends AbstractDateTypeHandler implements TypeHandler {
 

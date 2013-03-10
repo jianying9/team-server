@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 /**
  * 负责解析annotation EntityConfig
  *
- * @author zoe
+ * @author aladdin
  */
 public class EntityConfigDaoParser<T extends Entity> {
 

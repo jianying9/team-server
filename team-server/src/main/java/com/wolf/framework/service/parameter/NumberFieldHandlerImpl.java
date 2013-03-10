@@ -6,7 +6,7 @@ import com.wolf.framework.service.parameter.type.TypeHandler;
 /**
  * 数字类型处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class NumberFieldHandlerImpl extends AbstractFieldHandler implements FieldHandler {
 

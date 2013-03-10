@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * entity dao
  *
- * @author zoe
+ * @author aladdin
  */
 public interface EntityDao<T extends Entity> {
 

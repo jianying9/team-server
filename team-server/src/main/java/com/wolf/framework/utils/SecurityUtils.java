@@ -12,7 +12,7 @@ import javax.crypto.spec.IvParameterSpec;
 /**
  * 加密辅助类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class SecurityUtils {
 

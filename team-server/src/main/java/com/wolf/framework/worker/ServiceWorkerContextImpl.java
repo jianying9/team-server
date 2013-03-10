@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 全局信息构造类
  *
- * @author zoe
+ * @author aladdin
  */
 public class ServiceWorkerContextImpl implements ServiceWorkerContext {
 

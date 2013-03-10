@@ -6,6 +6,8 @@ import com.wolf.framework.dao.cache.InquireCache;
 import com.wolf.framework.dao.cache.InquireCacheImpl;
 import com.wolf.framework.hbase.HTableHandler;
 import com.wolf.framework.logger.LogFactory;
+import com.wolf.framework.lucene.DeleteFilterCache;
+import com.wolf.framework.lucene.DeleteFilterCacheImpl;
 import com.wolf.framework.task.TaskExecutor;
 import java.io.IOException;
 import java.util.Collections;
@@ -27,7 +29,7 @@ import org.slf4j.Logger;
 /**
  * 全局信息构造类
  *
- * @author zoe
+ * @author aladdin
  */
 public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<T> {
 
@@ -49,11 +51,19 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
         return cacheManager;
     }
     //sql查询缓存对象
-    private InquireCache inquireCache;
+    private final InquireCache inquireCache;
 
     @Override
     public final InquireCache getInquireCache() {
         return this.inquireCache;
+    }
+    
+    //lucene filter 缓存
+    private final DeleteFilterCache deleteFilterCache;
+
+    @Override
+    public DeleteFilterCache getDeleteFilterCache() {
+        return deleteFilterCache;
     }
 
     @Override
@@ -91,13 +101,20 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
         this.taskExecutor = taskExecutor;
         this.ip = ip;
         //创建sql cache
-        final CacheConfiguration cacheConfig = new DefaultCacheConfiguration().getDefault();
+        final CacheConfiguration sqlCacheConfig = new DefaultCacheConfiguration().getDefault();
         String uuid = UUID.randomUUID().toString();
         String inquireAndCountCacheName = "InquireAndCount-cache-".concat(uuid);
-        cacheConfig.name(inquireAndCountCacheName).maxEntriesLocalHeap(20000);
-        final Cache cache = new Cache(cacheConfig);
-        this.cacheManager.addCache(cache);
-        this.inquireCache = new InquireCacheImpl(cache);
+        sqlCacheConfig.name(inquireAndCountCacheName).maxEntriesLocalHeap(20000);
+        final Cache sqlCache = new Cache(sqlCacheConfig);
+        this.cacheManager.addCache(sqlCache);
+        this.inquireCache = new InquireCacheImpl(sqlCache);
+        //创建lucene delete filter cache
+        final CacheConfiguration luceneCacheConfig = new DefaultCacheConfiguration().getDefault();
+        String deleteFilterCacheName = "Lucene-Delete-cache-".concat(uuid);
+        luceneCacheConfig.name(deleteFilterCacheName).maxEntriesLocalHeap(20000);
+        final Cache luceneCache = new Cache(luceneCacheConfig);
+        this.cacheManager.addCache(luceneCache);
+        this.deleteFilterCache = new DeleteFilterCacheImpl(luceneCache);
         //检测lucene索引目录是否存在，如果不存在，则创建
         Path indexRootPath = new Path(this.indexRoot);
         try {

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public final class InquireByConditionHandlerImpl<T extends Entity> implements InquireByConditionHandler<T> {
 

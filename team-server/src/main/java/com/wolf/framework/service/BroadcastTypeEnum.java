@@ -3,7 +3,7 @@ package com.wolf.framework.service;
 /**
  * 广播类型参数类型
  *
- * @author zoe
+ * @author aladdin
  */
 public enum BroadcastTypeEnum {
 

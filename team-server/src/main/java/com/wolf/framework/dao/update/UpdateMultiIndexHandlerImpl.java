@@ -4,17 +4,16 @@ import com.wolf.framework.dao.inquire.InquireByKeyHandler;
 import com.wolf.framework.dao.parser.ColumnHandler;
 import com.wolf.framework.dao.parser.KeyHandler;
 import com.wolf.framework.lucene.HdfsLucene;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
-import org.apache.lucene.index.Term;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class UpdateMultiIndexHandlerImpl implements UpdateHandler {
 
@@ -56,7 +55,7 @@ public class UpdateMultiIndexHandlerImpl implements UpdateHandler {
             if (updateMap != null) {
                 doc = new Document();
                 //key
-                field = new StringField(keyName, keyValue, Field.Store.YES);
+                field = new StringField(HdfsLucene.KEY_NAME, keyValue, Field.Store.YES);
                 doc.add(field);
                 //索引
                 for (ColumnHandler columnHandler : this.indexColumnHandlerList) {
@@ -77,9 +76,7 @@ public class UpdateMultiIndexHandlerImpl implements UpdateHandler {
         //构造变化文档
         Document doc = this.createDocument(entityMap);
         if (doc != null) {
-            String keyName = this.keyHandler.getName();
-            Term keyTerm = new Term(keyName, rowKey);
-            this.hdfsLucene.updateDocument(keyTerm, doc);
+            this.hdfsLucene.updateDocument(doc);
         }
         return rowKey;
     }
@@ -89,22 +86,17 @@ public class UpdateMultiIndexHandlerImpl implements UpdateHandler {
         //更新数据
         this.updateHandler.batchUpdate(entityMapList);
         //重建索引
-        String keyName = this.keyHandler.getName();
-        String rowKey;
         Document doc;
-        Term keyTerm;
-        Map<Term, Document> updateIndexMap = new HashMap<Term, Document>(entityMapList.size(), 1);
+        List<Document> docList = new ArrayList<Document>(entityMapList.size());
         for (Map<String, String> entityMap : entityMapList) {
             doc = this.createDocument(entityMap);
             if (doc != null) {
-                rowKey = entityMap.get(keyName);
-                keyTerm = new Term(keyName, rowKey);
-                updateIndexMap.put(keyTerm, doc);
+                docList.add(doc);
             }
         }
         //保存
-        if (!updateIndexMap.isEmpty()) {
-            this.hdfsLucene.updateDocument(updateIndexMap);
+        if (!docList.isEmpty()) {
+            this.hdfsLucene.updateDocument(docList);
         }
     }
 }

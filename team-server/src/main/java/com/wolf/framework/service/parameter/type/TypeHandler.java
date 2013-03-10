@@ -5,7 +5,7 @@ import com.wolf.framework.service.parameter.FieldTypeClassEnum;
 /**
  * 类型处理类
  *
- * @author zoe
+ * @author aladdin
  */
 public interface TypeHandler {
 

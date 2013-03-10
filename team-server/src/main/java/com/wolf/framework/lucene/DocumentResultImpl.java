@@ -5,7 +5,7 @@ import org.apache.lucene.document.Document;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class DocumentResultImpl implements DocumentResult {
 

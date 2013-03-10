@@ -5,7 +5,7 @@ import com.wolf.framework.worker.FrameworkMessageContext;
 /**
  * 次要参数处理
  *
- * @author zoe
+ * @author aladdin
  */
 public interface MinorParameterHandler {
 

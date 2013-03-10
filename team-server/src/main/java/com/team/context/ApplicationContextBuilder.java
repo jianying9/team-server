@@ -16,7 +16,7 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 /**
  * 全局信息构造类
  *
- * @author zoe
+ * @author aladdin
  */
 public final class ApplicationContextBuilder<T extends Entity, K extends Service, E extends DynamicDictionaryHandler<T>> extends AbstractApplicationContextBuilder<T, K, E> {
 

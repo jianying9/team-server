@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * 八字节有符号类型-999999999999999999到999999999999999999
  *
- * @author zoe
+ * @author aladdin
  */
 public final class BigIntSignedTypeHandlerImpl extends AbstractNumberTypeHandler implements TypeHandler {
 

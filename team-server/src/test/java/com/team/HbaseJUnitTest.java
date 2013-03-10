@@ -39,7 +39,7 @@ import org.junit.Test;
 
 /**
  *
- * @author zoe
+ * @author aladdin
  */
 public class HbaseJUnitTest {
 
@@ -188,7 +188,7 @@ public class HbaseJUnitTest {
         Put put = new Put(rowKey);
         put.add(columnFamily, nickName, Bytes.toBytes("zoe1"));
         put.add(columnFamily, password, Bytes.toBytes("111111"));
-        put.add(columnFamily, userEmail, Bytes.toBytes("zoe@91.com"));
+        put.add(columnFamily, userEmail, Bytes.toBytes("aladdin@91.com"));
         table.put(put);
     }
 
@@ -316,7 +316,7 @@ public class HbaseJUnitTest {
 //        }
     }
 
-    @Test
+//    @Test
     public void testHbaseSearch() throws IOException {
         Configuration config = HBaseConfiguration.create();
         config.set("hbase.zookeeper.quorum", "192.168.19.42");
@@ -348,7 +348,7 @@ public class HbaseJUnitTest {
         Configuration config = HBaseConfiguration.create();
         config.set("hbase.zookeeper.quorum", "192.168.19.42");
         HBaseAdmin hbase = new HBaseAdmin(config);
-        String tableName = "_Index";
+        String tableName = "LuceneTemp";
         byte[] tableNameByte = Bytes.toBytes(tableName);
         byte[] familyNameByte = Bytes.toBytes(tableName.toLowerCase());
         boolean flag = hbase.tableExists(tableNameByte);

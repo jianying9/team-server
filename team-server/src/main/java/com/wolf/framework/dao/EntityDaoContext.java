@@ -1,5 +1,6 @@
 package com.wolf.framework.dao;
 
+import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.dao.cache.InquireCache;
 import com.wolf.framework.hbase.HTableHandler;
 import com.wolf.framework.lucene.DeleteFilterCache;
@@ -39,8 +40,12 @@ public interface EntityDaoContext<T extends Entity> {
     public Analyzer getAnalyzer();
 
     public IndexWriterConfig getIndexWriterConfig();
+    
+    public IndexWriterConfig getRamIndexWriterConfig();
 
     public TaskExecutor getTaskExecutor();
 
     public String getIP();
+    
+    public ApplicationContext getApplicationContext();
 }

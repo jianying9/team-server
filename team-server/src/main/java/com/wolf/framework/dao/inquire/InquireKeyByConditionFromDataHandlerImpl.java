@@ -3,6 +3,7 @@ package com.wolf.framework.dao.inquire;
 import com.wolf.framework.dao.condition.Condition;
 import com.wolf.framework.dao.condition.InquireContext;
 import com.wolf.framework.dao.condition.OperateTypeEnum;
+import com.wolf.framework.dao.parser.KeyHandler;
 import com.wolf.framework.lucene.DocumentResult;
 import com.wolf.framework.lucene.HdfsLucene;
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ import org.apache.lucene.search.TermQuery;
  *
  * @author aladdin
  */
-public final class InquireKeyByConditionFromIndexHandlerImpl implements InquireKeyByConditionHandler {
+public final class InquireKeyByConditionFromDataHandlerImpl implements InquireKeyByConditionHandler {
 
+    private final KeyHandler keyHandler;
     private final HdfsLucene hdfsLucene;
 
-    public InquireKeyByConditionFromIndexHandlerImpl(HdfsLucene hdfsLucene) {
+    public InquireKeyByConditionFromDataHandlerImpl(KeyHandler keyHandler, HdfsLucene hdfsLucene) {
+        this.keyHandler = keyHandler;
         this.hdfsLucene = hdfsLucene;
     }
 
@@ -71,9 +74,10 @@ public final class InquireKeyByConditionFromIndexHandlerImpl implements InquireK
         } else {
             List<Document> docList = documentResult.getResultList();
             String keyValue;
+            String keyName = this.keyHandler.getName();
             keyList = new ArrayList<String>(docList.size());
             for (Document document : docList) {
-                keyValue = document.get(HdfsLucene.KEY_NAME);
+                keyValue = document.get(keyName);
                 keyList.add(keyValue);
             }
         }

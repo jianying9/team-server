@@ -24,7 +24,7 @@ public class LogoutServiceImplTest extends AbstractTeamTest {
     public void tearDown() {
     }
 
-    @Test
+//    @Test
     public void testLogout() {
         TestHandler.execute(ActionNames.LOGOUT, null);
     }

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StringField;
 import org.slf4j.Logger;
 
 /**
@@ -51,100 +51,74 @@ public abstract class AbstractDaoHandler<T extends Entity> {
         t.parseMap(resultMap);
         return t;
     }
-    
-    protected final Map<String, String> readResultToMap(Result result) {
+
+    protected final Map<String, String> documentToMap(Document doc) {
         Map<String, String> resultMap = new HashMap<String, String>(this.columnHandlerList.size() + 1, 1);
-        //放入key
-        String keyValue = Bytes.toString(result.getRow());
-        resultMap.put(this.keyHandler.getName(), keyValue);
         //读取column
         String columnName;
-        byte[] columnValue;
-        byte[] columnFamily;
+        String columnValue;
         for (ColumnHandler columnHandler : columnHandlerList) {
-            columnFamily = columnHandler.getColumnFamily();
             columnName = columnHandler.getColumnName();
-            columnValue = result.getValue(columnFamily, Bytes.toBytes(columnName));
+            columnValue = doc.get(columnName);
             if (columnValue == null) {
                 this.logger.warn("inquire table {} waring message: can not find column:{} value", this.tableName, columnName);
-                resultMap.put(columnName, "-999");
-            } else {
-                resultMap.put(columnName, Bytes.toString(columnValue));
+                columnValue = "";
             }
+            resultMap.put(columnName, columnValue);
         }
+        //放入key
+        String keyName = this.keyHandler.getName();
+        String keyValue = doc.get(keyName);
+        resultMap.put(keyName, keyValue);
         return resultMap;
     }
-    
-    protected final List<Map<String, String>> readResultToMap(Result[] result) {
-        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>(result.length);
+
+    protected final List<Map<String, String>> documentToMap(List<Document> docList) {
+        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>(docList.size());
         Map<String, String> map;
-        for (int index = 0; index < result.length; index++) {
-            map = this.readResultToMap(result[index]);
+        for (Document doc : docList) {
+            map = this.documentToMap(doc);
             mapList.add(map);
         }
         return mapList;
     }
 
-    protected final T readResult(Result result) {
-        Map<String, String> resultMap = this.readResultToMap(result);
+    protected final T readDocument(Document doc) {
+        Map<String, String> resultMap = this.documentToMap(doc);
         return this.newInstance(resultMap);
     }
 
-    protected final List<T> readResult(List<Result> resultList) {
-        List<T> tList = new ArrayList<T>(resultList.size());
+    protected final List<T> readDocumentList(List<Document> docList) {
+        List<T> tList = new ArrayList<T>(docList.size());
         T t;
-        for (Result result : resultList) {
-            t = this.readResult(result);
+        for (Document doc : docList) {
+            t = this.readDocument(doc);
             tList.add(t);
         }
         return tList;
     }
 
-    protected final List<T> readResult(Result[] result) {
-        List<T> tList = new ArrayList<T>(result.length);
-        T t;
-        for (int index = 0; index < result.length; index++) {
-            t = this.readResult(result[index]);
-            tList.add(t);
+    protected final Document mapToDocument(final Map<String, String> entityMap) {
+        String keyName = this.keyHandler.getName();
+        String keyValue = entityMap.get(keyName);
+        if (keyName == null) {
+            this.logger.error("insert table {} failure message: can not find keyName:{} value", this.tableName, keyName);
+            throw new RuntimeException("insert failure message: can not find keyName value...see log");
         }
-        return tList;
-    }
-    
-    protected final Put createInsertPut(final String keyValue, final Map<String, String> entityMap) {
-        final byte[] rowKey = Bytes.toBytes(keyValue);
-        final Put put = new Put(rowKey);
+        Document doc = new Document();
         String columnName;
         String columnValue;
-        byte[] columnFamily;
+        Field field;
         for (ColumnHandler columnHandler : this.columnHandlerList) {
             columnName = columnHandler.getColumnName();
             columnValue = entityMap.get(columnName);
-            if (columnValue == null) {
-                this.logger.error("insert table {} failure message: can not find column:{} value", this.tableName, columnName);
-                this.logger.error("insert failure value:{}", entityMap.toString());
-                throw new RuntimeException("insert failure message: can not find column value...see log");
-            } else {
-                columnFamily = columnHandler.getColumnFamily();
-                put.add(columnFamily, Bytes.toBytes(columnName), Bytes.toBytes(columnValue));
-            }
-        }
-        return put;
-    }
-
-    protected final Put createUpdatePut(final String keyValue, final Map<String, String> dataMap) {
-        final byte[] rowKey = Bytes.toBytes(keyValue);
-        final Put put = new Put(rowKey);
-        String columnName;
-        String columnValue;
-        byte[] columnFamily;
-        for (ColumnHandler columnHandler : this.columnHandlerList) {
-            columnName = columnHandler.getColumnName();
-            columnValue = dataMap.get(columnName);
             if (columnValue != null) {
-                columnFamily = columnHandler.getColumnFamily();
-                put.add(columnFamily, Bytes.toBytes(columnName), Bytes.toBytes(columnValue));
+                field = new StringField(columnName, columnValue, Field.Store.YES);
+                doc.add(field);
             }
         }
-        return put;
+        field = new StringField(keyName, keyValue, Field.Store.YES);
+        doc.add(field);
+        return doc;
     }
 }

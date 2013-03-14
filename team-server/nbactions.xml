@@ -27,4 +27,26 @@
                 <skipTests>true</skipTests>
             </properties>
         </action>
+        <action>
+            <actionName>debug</actionName>
+            <goals>
+                <goal>package</goal>
+            </goals>
+            <properties>
+                <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
+                <netbeans.deploy>true</netbeans.deploy>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
+        <action>
+            <actionName>profile</actionName>
+            <goals>
+                <goal>package</goal>
+            </goals>
+            <properties>
+                <netbeans.deploy>true</netbeans.deploy>
+                <netbeans.deploy.profilemode>true</netbeans.deploy.profilemode>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
     </actions>

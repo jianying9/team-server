@@ -2,6 +2,7 @@ package com.wolf.framework.dao;
 
 import com.wolf.framework.cache.DefaultCacheConfiguration;
 import com.wolf.framework.config.FrameworkLoggerEnum;
+import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.dao.cache.InquireCache;
 import com.wolf.framework.dao.cache.InquireCacheImpl;
 import com.wolf.framework.hbase.HTableHandler;
@@ -22,6 +23,7 @@ import org.apache.hadoop.fs.Path;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.NoMergeScheduler;
 import org.apache.lucene.index.SerialMergeScheduler;
 import org.apache.lucene.util.Version;
 import org.slf4j.Logger;
@@ -41,10 +43,13 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
     private final String indexRoot = "/lucene";
     private final Analyzer analyzer;
     private final IndexWriterConfig iwc;
+    private final IndexWriterConfig ramIwc;
     private final TaskExecutor taskExecutor;
     private final String ip;
     //entity处理类集合
     private final Map<Class<T>, EntityDao<T>> entityDaoMap;
+    //
+    private final ApplicationContext applicationContext;
 
     @Override
     public final CacheManager getCacheManager() {
@@ -57,7 +62,6 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
     public final InquireCache getInquireCache() {
         return this.inquireCache;
     }
-    
     //lucene filter 缓存
     private final DeleteFilterCache deleteFilterCache;
 
@@ -93,8 +97,9 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
      *
      * @param properties
      */
-    public EntityDaoContextImpl(final HTableHandler hTableHandler, final CacheManager cacheManager, final FileSystem fileSystem, final TaskExecutor taskExecutor, final String ip) {
+    public EntityDaoContextImpl(ApplicationContext applicationContext, final HTableHandler hTableHandler, final CacheManager cacheManager, final FileSystem fileSystem, final TaskExecutor taskExecutor, final String ip) {
         this.entityDaoMap = new HashMap<Class<T>, EntityDao<T>>(64, 1);
+        this.applicationContext = applicationContext;
         this.hTableHandler = hTableHandler;
         this.cacheManager = cacheManager;
         this.fileSystem = fileSystem;
@@ -127,12 +132,18 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
             logger.error("DAO:create lucene index directory error...see log");
             throw new RuntimeException(ex);
         }
-        //创建索引分词对象和写入配置对象
+        //创建索引分词对象
         this.analyzer = new StandardAnalyzer(Version.LUCENE_41);
+        //hdfs写入配置对象
         this.iwc = new IndexWriterConfig(Version.LUCENE_41, analyzer);
         this.iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         this.iwc.setMaxThreadStates(1);
         this.iwc.setMergeScheduler(new SerialMergeScheduler());
+        //ram写入配置对象
+        this.ramIwc = new IndexWriterConfig(Version.LUCENE_41, analyzer);
+        this.ramIwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        this.ramIwc.setMaxThreadStates(1);
+        this.ramIwc.setMergeScheduler(NoMergeScheduler.INSTANCE);
     }
 
     @Override
@@ -171,6 +182,11 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
     }
 
     @Override
+    public IndexWriterConfig getRamIndexWriterConfig() {
+        return this.ramIwc;
+    }
+
+    @Override
     public TaskExecutor getTaskExecutor() {
         return this.taskExecutor;
     }
@@ -178,5 +194,10 @@ public class EntityDaoContextImpl<T extends Entity> implements EntityDaoContext<
     @Override
     public String getIP() {
         return this.ip;
+    }
+
+    @Override
+    public ApplicationContext getApplicationContext() {
+        return this.applicationContext;
     }
 }

@@ -4,11 +4,11 @@ import com.wolf.framework.dao.AbstractDaoHandler;
 import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.parser.ColumnHandler;
 import com.wolf.framework.dao.parser.KeyHandler;
-import com.wolf.framework.hbase.HTableHandler;
+import com.wolf.framework.lucene.HdfsLucene;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.hadoop.hbase.client.Put;
+import org.apache.lucene.document.Document;
 
 /**
  *
@@ -16,11 +16,11 @@ import org.apache.hadoop.hbase.client.Put;
  */
 public class InsertDataHandlerImpl<T extends Entity> extends AbstractDaoHandler<T> implements InsertHandler<T> {
 
-    private final HTableHandler hTableHandler;
+    private final HdfsLucene hdfsLucene;
 
-    public InsertDataHandlerImpl(HTableHandler hTableHandler, String tableName, Class clazz, List<ColumnHandler> columnHandlerList, KeyHandler keyHandler) {
+    public InsertDataHandlerImpl(HdfsLucene hdfsLucene, String tableName, Class clazz, List<ColumnHandler> columnHandlerList, KeyHandler keyHandler) {
         super(tableName, clazz, columnHandlerList, keyHandler);
-        this.hTableHandler = hTableHandler;
+        this.hdfsLucene = hdfsLucene;
     }
 
     @Override
@@ -31,8 +31,8 @@ public class InsertDataHandlerImpl<T extends Entity> extends AbstractDaoHandler<
             keyValue = this.keyHandler.nextValue();
             entityMap.put(keyName, keyValue);
         }
-        final Put put = this.createInsertPut(keyValue, entityMap);
-        this.hTableHandler.put(tableName, put);
+        final Document doc = this.mapToDocument(entityMap);
+        this.hdfsLucene.addDocument(doc);
         T t = this.newInstance(entityMap);
         return t;
     }
@@ -40,8 +40,8 @@ public class InsertDataHandlerImpl<T extends Entity> extends AbstractDaoHandler<
     @Override
     public void batchInsert(List<Map<String, String>> entityMapList) {
         final String keyName = this.keyHandler.getName();
-        List<Put> putList = new ArrayList<Put>(entityMapList.size());
-        Put put;
+        List<Document> docList = new ArrayList<Document>(entityMapList.size());
+        Document doc;
         String keyValue;
         for (Map<String, String> entityMap : entityMapList) {
             keyValue = entityMap.get(keyName);
@@ -49,9 +49,9 @@ public class InsertDataHandlerImpl<T extends Entity> extends AbstractDaoHandler<
                 keyValue = this.keyHandler.nextValue();
                 entityMap.put(keyName, keyValue);
             }
-            put = this.createInsertPut(keyValue, entityMap);
-            putList.add(put);
+            doc = this.mapToDocument(entityMap);
+            docList.add(doc);
         }
-        this.hTableHandler.put(tableName, putList);
+        this.hdfsLucene.addDocument(docList);
     }
 }

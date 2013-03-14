@@ -3,11 +3,11 @@ package com.wolf.framework.dao.update;
 import com.wolf.framework.dao.AbstractDaoHandler;
 import com.wolf.framework.dao.parser.ColumnHandler;
 import com.wolf.framework.dao.parser.KeyHandler;
-import com.wolf.framework.hbase.HTableHandler;
+import com.wolf.framework.lucene.HdfsLucene;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.hadoop.hbase.client.Put;
+import org.apache.lucene.document.Document;
 
 /**
  *
@@ -15,11 +15,11 @@ import org.apache.hadoop.hbase.client.Put;
  */
 public class UpdateDataHandlerImpl extends AbstractDaoHandler implements UpdateHandler {
 
-    private final HTableHandler hTableHandler;
+    private final HdfsLucene hdfsLucene;
 
-    public UpdateDataHandlerImpl(HTableHandler hTableHandler, String tableName, Class clazz, List<ColumnHandler> columnHandlerList, KeyHandler keyHandler) {
+    public UpdateDataHandlerImpl(HdfsLucene hdfsLucene, String tableName, Class clazz, List<ColumnHandler> columnHandlerList, KeyHandler keyHandler) {
         super(tableName, clazz, columnHandlerList, keyHandler);
-        this.hTableHandler = hTableHandler;
+        this.hdfsLucene = hdfsLucene;
     }
 
     @Override
@@ -31,34 +31,20 @@ public class UpdateDataHandlerImpl extends AbstractDaoHandler implements UpdateH
             this.logger.error("update failure value:{}", entityMap.toString());
             throw new RuntimeException("update failure message: can not find key value...see log");
         } else {
-            final Put put = this.createUpdatePut(keyValue, entityMap);
-            if (!put.isEmpty()) {
-                this.hTableHandler.put(tableName, put);
-            }
+            final Document doc = this.mapToDocument(entityMap);
+            this.hdfsLucene.updateDocument(doc);
         }
         return keyValue;
     }
 
     @Override
     public void batchUpdate(List<Map<String, String>> entityMapList) {
-        final String keyName = this.keyHandler.getName();
-        List<Put> putList = new ArrayList<Put>(entityMapList.size());
-        Put put;
-        String keyValue;
+        List<Document> docList = new ArrayList<Document>(entityMapList.size());
+        Document doc;
         for (Map<String, String> entityMap : entityMapList) {
-            keyValue = entityMap.get(keyName);
-            if (keyValue == null) {
-                this.logger.error("update table {} failure message: can not find key:{} value", this.tableName, keyName);
-                this.logger.error("update failure value:{}", entityMap.toString());
-                throw new RuntimeException("update failure message: can not find key value...see log");
-            }
-            put = this.createInsertPut(keyValue, entityMap);
-            if (!put.isEmpty()) {
-                putList.add(put);
-            }
+            doc = this.mapToDocument(entityMap);
+            docList.add(doc);
         }
-        if (!putList.isEmpty()) {
-            this.hTableHandler.put(tableName, putList);
-        }
+        this.hdfsLucene.updateDocument(docList);
     }
 }

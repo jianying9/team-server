@@ -2,6 +2,7 @@ package com.wolf.framework.worker;
 
 import com.wolf.framework.config.DefaultResponseFlagEnum;
 import com.wolf.framework.config.ResponseFlagType;
+import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.dao.Entity;
 import com.wolf.framework.service.parameter.FieldHandler;
 import com.wolf.framework.session.Session;
@@ -270,7 +271,7 @@ public class WebSocketMessageContextImpl implements FrameworkMessageContext {
     @Override
     public void saveSession() {
         if (this.session == null) {
-            throw new RuntimeException("session is null when save session.please check you code.");
+            this.globalWebSocket.setSession(null);
         } else {
             //新session存在
             //判断当前接口是否重复登录
@@ -298,5 +299,10 @@ public class WebSocketMessageContextImpl implements FrameworkMessageContext {
     @Override
     public void removeSession() {
         this.globalWebSocket.setSession(null);
+    }
+
+    @Override
+    public ApplicationContext getApplicationContext() {
+        return ApplicationContext.CONTEXT;
     }
 }

@@ -24,7 +24,7 @@ public class MergeLuceneIndexImplTest extends AbstractTeamTest {
     public void tearDown() {
     }
 
-    @Test
+//    @Test
     public void testLogin() {
         TestHandler.execute(ActionNames.MERGE_LUCENE_INDEX, null);
     }

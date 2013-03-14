@@ -28,7 +28,7 @@ public final class DoubleSignedTypeHandlerImpl extends AbstractNumberTypeHandler
     @Override
     public String getRandomValue() {
         double value = NumberUtils.getRandomDoubleValue();
-        String result = NumberUtils.numberDf.format(value);
+        String result = NumberUtils.NUMBER_FORMAT.format(value);
         return result;
     }
 }

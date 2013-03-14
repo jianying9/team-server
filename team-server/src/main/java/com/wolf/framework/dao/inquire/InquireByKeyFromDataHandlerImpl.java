@@ -4,11 +4,11 @@ import com.wolf.framework.dao.AbstractDaoHandler;
 import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.parser.ColumnHandler;
 import com.wolf.framework.dao.parser.KeyHandler;
-import com.wolf.framework.hbase.HTableHandler;
+import com.wolf.framework.lucene.HdfsLucene;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.hadoop.hbase.client.Result;
+import org.apache.lucene.document.Document;
 
 /**
  *
@@ -16,19 +16,19 @@ import org.apache.hadoop.hbase.client.Result;
  */
 public final class InquireByKeyFromDataHandlerImpl<T extends Entity> extends AbstractDaoHandler<T> implements InquireByKeyHandler<T> {
 
-    private final HTableHandler hTableHandler;
+    private final HdfsLucene hdfsLucene;
 
-    public InquireByKeyFromDataHandlerImpl(HTableHandler hTableHandler, String tableName, Class<T> clazz, List<ColumnHandler> columnHandlerList, KeyHandler keyHandler) {
+    public InquireByKeyFromDataHandlerImpl(HdfsLucene hdfsLucene, String tableName, Class<T> clazz, List<ColumnHandler> columnHandlerList, KeyHandler keyHandler) {
         super(tableName, clazz, columnHandlerList, keyHandler);
-        this.hTableHandler = hTableHandler;
+        this.hdfsLucene = hdfsLucene;
     }
 
     @Override
     public T inquireByKey(String keyValue) {
         T t = null;
-        Result result = this.hTableHandler.get(tableName, keyValue);
-        if (result != null) {
-            t = this.readResult(result);
+        Document doc = this.hdfsLucene.getByKey(keyValue);
+        if (doc != null) {
+            t = this.readDocument(doc);
         }
         return t;
     }
@@ -36,9 +36,9 @@ public final class InquireByKeyFromDataHandlerImpl<T extends Entity> extends Abs
     @Override
     public List<T> inquireByKeys(List<String> keyValues) {
         List<T> tList;
-        Result[] result = this.hTableHandler.get(tableName, keyValues);
-        if (result != null && result.length > 0) {
-            tList = this.readResult(result);
+        List<Document> docList = this.hdfsLucene.getByKeys(keyValues);
+        if (keyValues.isEmpty() == false) {
+            tList = this.readDocumentList(docList);
         } else {
             tList = new ArrayList<T>(0);
         }
@@ -48,9 +48,9 @@ public final class InquireByKeyFromDataHandlerImpl<T extends Entity> extends Abs
     @Override
     public Map<String, String> inquireMapByKey(String keyValue) {
         Map<String, String> map = null;
-        Result result = this.hTableHandler.get(tableName, keyValue);
-        if (result != null) {
-            map = this.readResultToMap(result);
+        Document doc = this.hdfsLucene.getByKey(keyValue);
+        if (doc != null) {
+            map = this.documentToMap(doc);
         }
         return map;
     }
@@ -58,9 +58,9 @@ public final class InquireByKeyFromDataHandlerImpl<T extends Entity> extends Abs
     @Override
     public List<Map<String, String>> inquireMapByKeys(List<String> keyValues) {
         List<Map<String, String>> mapList;
-        Result[] result = this.hTableHandler.get(tableName, keyValues);
-        if (result != null && result.length > 0) {
-            mapList = this.readResultToMap(result);
+        List<Document> docList = this.hdfsLucene.getByKeys(keyValues);
+        if (keyValues.isEmpty() == false) {
+            mapList = this.documentToMap(docList);
         } else {
             mapList = new ArrayList<Map<String, String>>(0);
         }

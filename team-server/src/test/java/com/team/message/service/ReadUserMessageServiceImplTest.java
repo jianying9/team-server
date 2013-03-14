@@ -27,7 +27,7 @@ public class ReadUserMessageServiceImplTest extends AbstractTeamTest {
     }
     //
 
-    @Test
+//    @Test
     public void testReadUserMessage() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
         parameterMap.put("messageId", "def0a55a-4ea1-449b-bc24-a1aa76006c30");

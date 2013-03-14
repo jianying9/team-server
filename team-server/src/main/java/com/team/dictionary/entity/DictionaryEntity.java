@@ -1,7 +1,6 @@
 package com.team.dictionary.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.dao.annotation.Column;
 import com.wolf.framework.dao.annotation.DaoConfig;
 import com.wolf.framework.dao.annotation.Key;
 import com.wolf.framework.service.parameter.FieldConfig;
@@ -25,31 +24,24 @@ public class DictionaryEntity extends Entity {
     @FieldConfig(type = FieldTypeEnum.UUID, fieldDesc = "字典ID")
     private String dicId;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.CHAR24, fieldDesc = "字典名称")
     private String dicName;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.CHAR24, fieldDesc = "缺省值")
     private String dicDefault;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.TINY_INT_SIGNED, fieldDesc = "字典类型:0列表类型,1树类型")
     private byte dicType;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.INT_SIGNED, fieldDesc = "当前eleValue最大值")
     private int dicIndex;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.CHAR24, fieldDesc = "字典描述")
     private String dicDesc;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.TINY_INT_SIGNED, fieldDesc = "是否启用:0未启用,1启用")
     private byte inUse;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.DATETIME, fieldDesc = "注册时间")
     private String createTime;
 

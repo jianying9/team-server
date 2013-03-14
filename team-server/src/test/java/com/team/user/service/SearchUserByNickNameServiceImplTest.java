@@ -27,7 +27,7 @@ public class SearchUserByNickNameServiceImplTest extends AbstractTeamTest {
     }
     //
 
-    @Test
+//    @Test
     public void testSearchNickName() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
         parameterMap.put("nickName", "1");

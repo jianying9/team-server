@@ -25,7 +25,7 @@ public class InquireUnreadUserMessageServiceImplTest extends AbstractTeamTest {
     }
     //
 
-    @Test
+//    @Test
     public void testInquireUnreadUserMessage() {
         TestHandler.execute(ActionNames.INQUIRE_UNREAD_USER_MESSAGE, null);
     }

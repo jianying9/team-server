@@ -4,7 +4,10 @@ import com.sun.grizzly.websockets.WebSocketEngine;
 import com.team.config.TeamLoggerEnum;
 import com.team.context.ApplicationContextBuilder;
 import com.team.websocket.TeamGlobalApplication;
+import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.logger.LogFactory;
+import com.wolf.framework.lucene.HdfsLucene;
+import java.util.List;
 import java.util.Properties;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -61,6 +64,12 @@ public class ApplicationListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         if (ApplicationListener.APP != null) {
             WebSocketEngine.getEngine().unregister(ApplicationListener.APP);
+        }
+        List<HdfsLucene> hdfsLuceneList = ApplicationContext.CONTEXT.getHdfsLuceneList();
+        if (hdfsLuceneList.isEmpty() == false) {
+            for (HdfsLucene hdfsLucene : hdfsLuceneList) {
+                hdfsLucene.tryToMerge();
+            }
         }
     }
 }

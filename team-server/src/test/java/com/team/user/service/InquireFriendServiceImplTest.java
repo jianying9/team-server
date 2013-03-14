@@ -25,7 +25,7 @@ public class InquireFriendServiceImplTest extends AbstractTeamTest {
     }
     //
 
-    @Test
+//    @Test
     public void testInquireFriend() {
         TestHandler.execute(ActionNames.INQUIRE_FRIEND, null);
     }

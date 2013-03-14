@@ -1,6 +1,7 @@
 package com.wolf.framework.worker;
 
 import com.wolf.framework.config.ResponseFlagType;
+import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.dao.Entity;
 import com.wolf.framework.session.Session;
 import java.util.List;
@@ -45,4 +46,6 @@ public interface MessageContext {
     public void setFlag(ResponseFlagType responseFlagType);
 
     public boolean isOnline(String userId);
+    
+    public ApplicationContext getApplicationContext();
 }

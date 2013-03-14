@@ -1,9 +1,7 @@
 package com.team.user.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.dao.annotation.Column;
 import com.wolf.framework.dao.annotation.DaoConfig;
-import com.wolf.framework.dao.annotation.IndexTypeEnum;
 import com.wolf.framework.dao.annotation.Key;
 import com.wolf.framework.service.parameter.FieldConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
@@ -28,19 +26,15 @@ public class UserEntity extends Entity {
     private String userId;
     //
     @FieldConfig(type = FieldTypeEnum.CHAR32, fieldDesc = "昵称")
-    @Column(indexTypeEnum = IndexTypeEnum.STRING_INDEX)
     private String nickName;
     //
     @FieldConfig(type = FieldTypeEnum.CHAR32, fieldDesc = "密码md5")
-    @Column()
     private String password;
     //
     @FieldConfig(type = FieldTypeEnum.CHAR64, fieldDesc = "邮箱")
-    @Column(indexTypeEnum = IndexTypeEnum.STRING_INDEX)
     private String userEmail;
     //
     @FieldConfig(type = FieldTypeEnum.DATETIME, fieldDesc = "注册时间")
-    @Column()
     private String createTime;
 
     public String getUserId() {

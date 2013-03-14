@@ -3,7 +3,7 @@ package com.team;
 import com.team.context.TestApplicationContextBuilder;
 import com.team.session.SessionImpl;
 import com.team.websocket.TestTeamGlobalApplication;
-import com.wolf.framework.dao.EntityDaoBuilder;
+import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.lucene.HdfsLucene;
 import com.wolf.framework.session.Session;
 import com.wolf.framework.test.TestHandler;
@@ -38,7 +38,7 @@ public abstract class AbstractTeamTest {
     
     @AfterClass
     public final static void tearDownClass() {
-        List<HdfsLucene> hdfsLuceneList = EntityDaoBuilder.ALL_HDFS_LUCENE;
+        List<HdfsLucene> hdfsLuceneList = ApplicationContext.CONTEXT.getHdfsLuceneList();
         if (hdfsLuceneList.isEmpty() == false) {
             for (HdfsLucene hdfsLucene : hdfsLuceneList) {
                 hdfsLucene.tryToRotate();

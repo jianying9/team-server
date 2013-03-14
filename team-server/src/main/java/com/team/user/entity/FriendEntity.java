@@ -1,9 +1,7 @@
 package com.team.user.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.dao.annotation.Column;
 import com.wolf.framework.dao.annotation.DaoConfig;
-import com.wolf.framework.dao.annotation.IndexTypeEnum;
 import com.wolf.framework.dao.annotation.Key;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,13 +20,10 @@ public class FriendEntity extends Entity {
     @Key()
     private String recordId;
     //
-    @Column(indexTypeEnum = IndexTypeEnum.STRING_INDEX)
     private String userId;
     //
-    @Column(indexTypeEnum = IndexTypeEnum.STRING_INDEX)
     private String friendId;
     //
-    @Column()
     private String createTime;
 
     public String getRecordId() {

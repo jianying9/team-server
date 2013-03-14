@@ -104,6 +104,8 @@ public abstract class AbstractApplicationContextBuilder<T extends Entity, K exte
         ehcacheConfig.setMonitoring("OFF");
         final CacheManager cacheManager = CacheManager.create(ehcacheConfig);
         cacheManager.removalAll();
+        //将缓存管理对象放入全局上下文
+        ApplicationContext.CONTEXT.setCacheManager(cacheManager);
         //查找注解类
         this.logger.info("finding annotation...");
         final ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -129,7 +131,7 @@ public abstract class AbstractApplicationContextBuilder<T extends Entity, K exte
         final FileSystem fileSystem = this.fileSystemBuild();
         //解析entityDao
         this.logger.info("parsing annotation EntityConfig DAO...");
-        this.entityDaoContext = new EntityDaoContextImpl<T>(hTableHandler, cacheManager, fileSystem, taskExecutor, ip);
+        this.entityDaoContext = new EntityDaoContextImpl<T>(ApplicationContext.CONTEXT, hTableHandler, cacheManager, fileSystem, taskExecutor, ip);
         final EntityConfigDaoParser<T> entityConfigDaoParser = new EntityConfigDaoParser<T>(this.entityDaoContext);
         for (Class<T> clazz : this.entityClassList) {
             entityConfigDaoParser.parse(clazz);

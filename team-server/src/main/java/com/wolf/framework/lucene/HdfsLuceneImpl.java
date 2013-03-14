@@ -20,7 +20,6 @@ import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
@@ -41,7 +40,6 @@ import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
-import org.apache.lucene.util.Version;
 import org.slf4j.Logger;
 
 /**
@@ -50,11 +48,13 @@ import org.slf4j.Logger;
  */
 public class HdfsLuceneImpl implements HdfsLucene {
 
+    //
+    private final String keyName;
     //合并锁
     private volatile boolean mergeLock = false;
     //轮转锁
     private volatile boolean rotateLock = false;
-    //写入配置对象
+    //hdfs写入配置对象
     private final IndexWriterConfig iwc;
     //任务处理对象
     private final TaskExecutor taskExecutor;
@@ -68,7 +68,6 @@ public class HdfsLuceneImpl implements HdfsLucene {
     private final Path mainPath;
     private volatile IndexReader mainIndexReader;
     //当前内存索引
-    private final Analyzer analyzer;
     private final IndexWriterConfig ramIwc;
     private volatile RAMDirectory RAMDirectory;
     private volatile IndexWriter ramIndexWriter;
@@ -87,13 +86,14 @@ public class HdfsLuceneImpl implements HdfsLucene {
     //日志对象
     private final Logger logger = LogFactory.getLogger(FrameworkLoggerEnum.LUCENE);
 
-    public HdfsLuceneImpl(Path rootPath, FileSystem fileSystem, IndexWriterConfig iwc, TaskExecutor taskExecutor, String ip, Analyzer analyzer, DeleteFilterCache deleteFilterCache) throws IOException {
+    public HdfsLuceneImpl(String keyName, Path rootPath, FileSystem fileSystem, IndexWriterConfig iwc, IndexWriterConfig ramIwc, TaskExecutor taskExecutor, String ip, DeleteFilterCache deleteFilterCache) throws IOException {
+        this.keyName = keyName;
         this.fileSystem = fileSystem;
         this.rootPath = rootPath;
         this.iwc = iwc;
+        this.ramIwc = ramIwc;
         this.taskExecutor = taskExecutor;
         this.ip = ip;
-        this.analyzer = analyzer;
         //判断rootPath是否存在，否则创建
         if (!this.fileSystem.exists(this.rootPath)) {
             this.fileSystem.mkdirs(this.rootPath);
@@ -149,12 +149,9 @@ public class HdfsLuceneImpl implements HdfsLucene {
             }
         }
         this.logger.info("load read only index success");
-        //创建当前内存索引
-        this.ramIwc = new IndexWriterConfig(Version.LUCENE_41, this.analyzer);
-        this.ramIwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
-        this.ramIwc.setMaxThreadStates(1);
         this.RAMDirectory = new RAMDirectory();
         this.ramIndexWriter = new IndexWriter(RAMDirectory, this.ramIwc);
+        this.ramIndexWriter.commit();
         this.ramIndexReader = null;
         //创建内存索引文件备份对象
         String tempPathName;
@@ -201,7 +198,7 @@ public class HdfsLuceneImpl implements HdfsLucene {
             FSDataInputStream deleteInputStream = this.fileSystem.open(this.deleteIdPath);
             BufferedReader deleteBufferedReader = new BufferedReader(new InputStreamReader(deleteInputStream));
             String line = deleteBufferedReader.readLine();
-            while(line != null) {
+            while (line != null) {
                 this.deleteFilter.addDeleteId(line);
                 line = deleteBufferedReader.readLine();
             }
@@ -256,6 +253,7 @@ public class HdfsLuceneImpl implements HdfsLucene {
             //创建新的内存索引对象
             this.RAMDirectory = new RAMDirectory();
             this.ramIndexWriter = new IndexWriter(RAMDirectory, this.ramIwc);
+            this.ramIndexWriter.commit();
             //将当前内存索引置空
             this.ramIndexReader = null;
             //重新组合索引
@@ -282,7 +280,7 @@ public class HdfsLuceneImpl implements HdfsLucene {
             //重新组合索引
             this.buildMultiReader();
             //释放第二内存索引相关资源
-            if(secondIndexReader != null) {
+            if (secondIndexReader != null) {
                 secondIndexReader.close();
             }
             secondRamIndexWriter.close();
@@ -419,12 +417,13 @@ public class HdfsLuceneImpl implements HdfsLucene {
         }
         //重新读取当前写入索引目录
         IndexReader oldRamIndexReader = this.ramIndexReader;
-        this.ramIndexReader = DirectoryReader.open(this.ramIndexWriter, true);
+        this.ramIndexReader = DirectoryReader.open(this.ramIndexWriter, false);
         //重建组合索引对象
         this.buildMultiReader();
         //关闭旧的写入目录读取索引
         if (oldRamIndexReader != null) {
             oldRamIndexReader.close();
+            
         }
     }
 
@@ -437,11 +436,10 @@ public class HdfsLuceneImpl implements HdfsLucene {
             doc.add(idField);
             //写入内存
             this.ramIndexWriter.addDocument(doc);
-            this.ramIndexWriter.commit();
             //刷新内存，重新组合索引
             this.reopenIndexReaderWhenOperate();
             //将当前文档key值写入当前临时缓存文件
-            String keyValue = doc.get(HdfsLucene.KEY_NAME);
+            String keyValue = doc.get(this.keyName);
             FSDataOutputStream outputStream = this.fileSystem.create(this.ramPath);
             outputStream.writeBytes(keyValue);
             outputStream.writeBytes("\r");
@@ -468,11 +466,9 @@ public class HdfsLuceneImpl implements HdfsLucene {
                 //写入内存
                 this.ramIndexWriter.addDocument(document);
                 //将当前文档key值写入当前临时缓存文件
-                keyValue = document.get(HdfsLucene.KEY_NAME);
+                keyValue = document.get(this.keyName);
                 keyValueList.add(keyValue);
             }
-            //提交
-            this.ramIndexWriter.commit();
             //刷新内存，重新组合索引
             this.reopenIndexReaderWhenOperate();
             //写如缓存
@@ -491,8 +487,8 @@ public class HdfsLuceneImpl implements HdfsLucene {
     @Override
     public void updateDocument(Document doc) {
         //获取文档的对象
-        String keyValue = doc.get(HdfsLucene.KEY_NAME);
-        Term term = new Term(HdfsLucene.KEY_NAME, keyValue);
+        String keyValue = doc.get(this.keyName);
+        Term term = new Term(this.keyName, keyValue);
         Query query = new TermQuery(term);
         IndexSearcher searcher = new IndexSearcher(this.multiReader);
         try {
@@ -520,7 +516,6 @@ public class HdfsLuceneImpl implements HdfsLucene {
                 }
                 //写入内存
                 this.ramIndexWriter.addDocument(oldDoc);
-                this.ramIndexWriter.commit();
                 //刷新内存，重新组合索引
                 this.reopenIndexReaderWhenOperate();
                 //将删除id写入缓存
@@ -549,9 +544,9 @@ public class HdfsLuceneImpl implements HdfsLucene {
         Map<String, Document> docMap = new HashMap<String, Document>(docList.size(), 1);
         BooleanQuery booleanQuery = new BooleanQuery();
         for (Document doc : docList) {
-            keyValue = doc.get(HdfsLucene.KEY_NAME);
+            keyValue = doc.get(this.keyName);
             docMap.put(keyValue, doc);
-            term = new Term(HdfsLucene.KEY_NAME, keyValue);
+            term = new Term(this.keyName, keyValue);
             query = new TermQuery(term);
             booleanQuery.add(query, BooleanClause.Occur.SHOULD);
         }
@@ -580,7 +575,7 @@ public class HdfsLuceneImpl implements HdfsLucene {
                 for (int index = 0; index < hits.length; index++) {
                     oldDoc = searcher.doc(hits[index].doc);
                     oldDoc.removeField(HdfsLucene.DOCUMENT_ID);
-                    keyValue = oldDoc.get(HdfsLucene.KEY_NAME);
+                    keyValue = oldDoc.get(this.keyName);
                     keyValueList.add(keyValue);
                     //生成新文档id
                     insertId = UUID.randomUUID().toString();
@@ -597,8 +592,6 @@ public class HdfsLuceneImpl implements HdfsLucene {
                     //写入内存
                     this.ramIndexWriter.addDocument(oldDoc);
                 }
-                //提交内存
-                this.ramIndexWriter.commit();
                 //刷新内存，重新组合索引
                 this.reopenIndexReaderWhenOperate();
                 //将删除id写入缓存
@@ -625,8 +618,9 @@ public class HdfsLuceneImpl implements HdfsLucene {
     }
 
     @Override
-    public void deleteDocument(Term term) {
+    public void deleteDocument(String keyValue) {
         //获取文档的对象
+        Term term = new Term(this.keyName, keyValue);
         Query query = new TermQuery(term);
         IndexSearcher searcher = new IndexSearcher(this.multiReader);
         try {
@@ -650,17 +644,19 @@ public class HdfsLuceneImpl implements HdfsLucene {
     }
 
     @Override
-    public void deleteDocument(List<Term> termList) {
+    public void deleteDocument(List<String> keyValues) {
         //获取文档的对象
         Query query;
+        Term term;
         BooleanQuery booleanQuery = new BooleanQuery();
-        for (Term term : termList) {
+        for (String keyValue : keyValues) {
+            term = new Term(this.keyName, keyValue);
             query = new TermQuery(term);
             booleanQuery.add(query, BooleanClause.Occur.SHOULD);
         }
         IndexSearcher searcher = new IndexSearcher(this.multiReader);
         try {
-            TopDocs results = searcher.search(booleanQuery, this.deleteFilter, termList.size());
+            TopDocs results = searcher.search(booleanQuery, this.deleteFilter, keyValues.size());
             ScoreDoc[] hits = results.scoreDocs;
             if (hits.length > 0) {
                 //文档对象存在
@@ -719,9 +715,9 @@ public class HdfsLuceneImpl implements HdfsLucene {
         ScoreDoc scoreDocAfter = this.pageIndexToScoreDoc(pageIndex);
         try {
             if (scoreDocAfter == null) {
-                results = searcher.search(query, pageSize);
+                results = searcher.search(query, this.deleteFilter, pageSize);
             } else {
-                results = searcher.searchAfter(scoreDocAfter, query, pageSize);
+                results = searcher.searchAfter(scoreDocAfter, query, this.deleteFilter, pageSize);
             }
             ScoreDoc[] hits = results.scoreDocs;
             if (hits.length == 0) {
@@ -750,5 +746,62 @@ public class HdfsLuceneImpl implements HdfsLucene {
             documentResult.setNextPageIndex(nextPageIndex);
         }
         return documentResult;
+    }
+
+    @Override
+    public Document getByKey(String keyValue) {
+        Document doc = null;
+        Term term = new Term(this.keyName, keyValue);
+        Query query = new TermQuery(term);
+        IndexSearcher searcher = new IndexSearcher(this.multiReader);
+        try {
+            TopDocs results = searcher.search(query, this.deleteFilter, 1);
+            ScoreDoc[] hits = results.scoreDocs;
+            if (hits.length > 0) {
+                doc = searcher.doc(hits[0].doc);
+            }
+            if (hits.length > 1) {
+                this.logger.error("{}: has too many documents:keyValue:{}", this.rootPath.getName(), keyValue);
+            }
+        } catch (IOException ex) {
+            this.logger.error("{} directory search error.see log...", this.rootPath.getName());
+            throw new RuntimeException(ex);
+        }
+        return doc;
+    }
+
+    @Override
+    public List<Document> getByKeys(List<String> keyValueList) {
+        List<Document> docList;
+        Document doc;
+        Term term;
+        Query query;
+        BooleanQuery booleanQuery = new BooleanQuery();
+        for (String keyValue : keyValueList) {
+            term = new Term(this.keyName, keyValue);
+            query = new TermQuery(term);
+            booleanQuery.add(query, BooleanClause.Occur.SHOULD);
+        }
+        IndexSearcher searcher = new IndexSearcher(this.multiReader);
+        try {
+            TopDocs results = searcher.search(booleanQuery, this.deleteFilter, keyValueList.size());
+            ScoreDoc[] hits = results.scoreDocs;
+            if (hits.length > 0) {
+                docList = new ArrayList<Document>(hits.length);
+                for (int index = 0; index < hits.length; index++) {
+                    doc = searcher.doc(hits[index].doc);
+                    docList.add(doc);
+                }
+            } else {
+                docList = new ArrayList<Document>(0);
+            }
+            if (hits.length > keyValueList.size()) {
+                this.logger.error("{}: has too many documents:keyValues:{}", this.rootPath.getName(), keyValueList.toString());
+            }
+        } catch (IOException ex) {
+            this.logger.error("{} directory search error.see log...", this.rootPath.getName());
+            throw new RuntimeException(ex);
+        }
+        return docList;
     }
 }

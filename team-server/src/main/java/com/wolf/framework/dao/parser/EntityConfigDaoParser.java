@@ -5,7 +5,6 @@ import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.EntityDao;
 import com.wolf.framework.dao.EntityDaoBuilder;
 import com.wolf.framework.dao.EntityDaoContext;
-import com.wolf.framework.dao.annotation.Column;
 import com.wolf.framework.dao.annotation.DaoConfig;
 import com.wolf.framework.dao.annotation.Key;
 import com.wolf.framework.logger.LogFactory;
@@ -51,7 +50,6 @@ public class EntityConfigDaoParser<T extends Entity> {
             ColumnHandler columnHandler;
             int modifier;
             String fieldName;
-            Column column;
             String columnFamily;
             for (Field field : fieldTemp) {
                 modifier = field.getModifiers();
@@ -61,12 +59,8 @@ public class EntityConfigDaoParser<T extends Entity> {
                     if (field.isAnnotationPresent(Key.class)) {
                         //解析key
                         keyHandler = new KeyHandlerImpl(fieldName);
-                    } else if (field.isAnnotationPresent(Column.class)) {
-                        //解析column
-                        column = field.getAnnotation(Column.class);
-                        //列族名字默认则取表名小写
-                        columnFamily = tableName.toLowerCase();
-                        columnHandler = new ColumnHandlerImpl(fieldName, columnFamily, column.indexTypeEnum());
+                    } else {
+                        columnHandler = new ColumnHandlerImpl(fieldName);
                         columnHandlerList.add(columnHandler);
                     }
                 }

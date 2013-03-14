@@ -26,7 +26,7 @@ public class LoginServiceImplTest extends AbstractTeamTest {
     public void tearDown() {
     }
 
-    @Test
+//    @Test
     public void testLogin() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
         parameterMap.put("userEmail", "1@91yong.com");

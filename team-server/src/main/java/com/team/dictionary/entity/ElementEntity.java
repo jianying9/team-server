@@ -1,7 +1,6 @@
 package com.team.dictionary.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.dao.annotation.Column;
 import com.wolf.framework.dao.annotation.DaoConfig;
 import com.wolf.framework.dao.annotation.Key;
 import com.wolf.framework.service.parameter.FieldConfig;
@@ -25,31 +24,24 @@ public class ElementEntity extends Entity {
     @FieldConfig(type = FieldTypeEnum.UUID, fieldDesc = "元素ID")
     private String eleId;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.INT_SIGNED, fieldDesc = "元素值")
     private int eleValue;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.CHAR32, fieldDesc = "元素名称")
     private String eleName;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.BIG_INT_SIGNED, fieldDesc = "父元素ID")
     private long parentEleId;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.BIG_INT_SIGNED, fieldDesc = "字典ID")
     private long dicId;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.BIG_INT_SIGNED, fieldDesc = "排序号")
     private long sortId;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.TINY_INT_SIGNED, fieldDesc = "是否启用:0未启用,1启用")
     private byte inUse;
     //
-    @Column()
     @FieldConfig(type = FieldTypeEnum.DATETIME, fieldDesc = "注册时间")
     private String createTime;
 

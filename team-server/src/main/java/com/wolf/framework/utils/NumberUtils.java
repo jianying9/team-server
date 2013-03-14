@@ -11,29 +11,29 @@ public final class NumberUtils {
 
     private NumberUtils() {
     }
-    public final static Random random = new Random();
-    public final static DecimalFormat moneyDf = new DecimalFormat("#0.00");
-    public final static DecimalFormat numberDf = new DecimalFormat("#.####");
+    public final static Random RANDOM = new Random();
+    public final static DecimalFormat MONEY_FORMAT = new DecimalFormat("#0.00");
+    public final static DecimalFormat NUMBER_FORMAT = new DecimalFormat("#.####");
 
     public static String moneyFormat(double money) {
-        return moneyDf.format(money);
+        return MONEY_FORMAT.format(money);
     }
 
     public static int getRandomIntegerValue() {
-        return random.nextInt();
+        return RANDOM.nextInt();
     }
 
     public static int getRandomIntegerValue(int n) {
-        return random.nextInt(n);
+        return RANDOM.nextInt(n);
     }
 
     public static long getRandomLongValue() {
-        return random.nextLong();
+        return RANDOM.nextLong();
     }
 
     public static double getRandomDoubleValue() {
-        int value = random.nextInt();
-        double dvalue = random.nextDouble();
+        int value = RANDOM.nextInt();
+        double dvalue = RANDOM.nextDouble();
         return dvalue * value;
     }
 }

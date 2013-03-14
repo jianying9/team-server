@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -21,6 +22,7 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.index.NoMergeScheduler;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.FuzzyQuery;
@@ -341,6 +343,80 @@ public class LuceneJUnitTest {
         FileSystem dfs = FileSystem.get(config);
         Path src = new Path("/lucene");
         dfs.delete(src, true);
+
+    }
+
+//    @Test
+    public void testInsert() throws IOException {
+        Configuration config = new Configuration();
+        String rootPath = "hdfs://192.168.64.50:9000";
+        config.set("fs.default.name", rootPath);
+        FileSystem dfs = FileSystem.get(config);
+        Path readOnlyPath = new Path("/lucene/test");
+        if (dfs.exists(readOnlyPath) == false) {
+            dfs.mkdirs(readOnlyPath);
+        }
+        //初始化
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_41);
+        IndexWriterConfig ramIwc = new IndexWriterConfig(Version.LUCENE_41, analyzer);
+        
+        ramIwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        ramIwc.setMaxThreadStates(1);
+        HdfsDirectory readOnlyDirectory = new HdfsDirectory(dfs, readOnlyPath);
+        IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_41, analyzer);
+        iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
+        iwc.setMergeScheduler(NoMergeScheduler.INSTANCE);
+        IndexWriter readOnlyWriter = new IndexWriter(readOnlyDirectory, iwc);
+        RAMDirectory RAMDirectory = new RAMDirectory();
+        IndexWriter ramIndexWriter = new IndexWriter(RAMDirectory, ramIwc);
+        IndexReader ramIndexReader = null;
+        //插入
+        Document doc;
+        String name;
+        String value;
+        Field field;
+        RAMDirectory secondRAMDirectory;
+        IndexWriter secondRamIndexWriter;
+        IndexReader secondIndexReader;
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 2000; i++) {
+            doc = new Document();
+            for (int j = 0; j < 10; j++) {
+                name = UUID.randomUUID().toString();
+                value = name;
+                field = new StringField(name, value, Field.Store.YES);
+                doc.add(field);
+            }
+            ramIndexWriter.addDocument(doc);
+//            ramIndexWriter.commit();
+//            ramIndexReader = DirectoryReader.open(RAMDirectory);
+            long size = RAMDirectory.sizeInBytes();
+//            if(size >= 8388608) {
+//                secondRAMDirectory = RAMDirectory;
+//                secondRamIndexWriter = ramIndexWriter;
+//                secondRamIndexWriter.commit();
+//                secondIndexReader = ramIndexReader;
+//                readOnlyWriter.addIndexes(secondRAMDirectory);
+//                readOnlyWriter.commit();
+//                RAMDirectory = new RAMDirectory();
+//                ramIndexWriter = new IndexWriter(RAMDirectory, ramIwc);
+//                ramIndexReader = null;
+//                if(secondIndexReader != null) {
+//                    secondIndexReader.close();
+//                }
+//                secondRamIndexWriter.close();
+//                secondRAMDirectory.close();
+//            }
+            if(i % 100 == 0) {
+                System.out.println("num:" + i);
+            }
+        }
+        long stop = System.currentTimeMillis();
+        long time = stop - start;
+        System.out.println("time" + time);
+        ramIndexWriter.commit();
+        readOnlyWriter.addIndexes(RAMDirectory);
+        readOnlyWriter.commit();
     }
 
 //    @Test

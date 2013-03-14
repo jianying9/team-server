@@ -1,7 +1,6 @@
 package com.team.system.service;
 
 import com.team.config.ActionNames;
-import com.wolf.framework.dao.EntityDaoBuilder;
 import com.wolf.framework.lucene.HdfsLucene;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
@@ -20,7 +19,7 @@ public class MergeLuceneIndexServiceImpl implements Service {
 
     @Override
     public void execute(MessageContext messageContext) {
-        List<HdfsLucene> hdfsLuceneList = EntityDaoBuilder.ALL_HDFS_LUCENE;
+        List<HdfsLucene> hdfsLuceneList = messageContext.getApplicationContext().getHdfsLuceneList();
         if (hdfsLuceneList.isEmpty() == false) {
             for (HdfsLucene hdfsLucene : hdfsLuceneList) {
                 hdfsLucene.tryToMerge();

@@ -1,9 +1,7 @@
 package com.team.message.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.dao.annotation.Column;
 import com.wolf.framework.dao.annotation.DaoConfig;
-import com.wolf.framework.dao.annotation.IndexTypeEnum;
 import com.wolf.framework.dao.annotation.Key;
 import com.wolf.framework.service.parameter.FieldConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
@@ -26,23 +24,18 @@ public class MessageEntity extends Entity {
     private String messageId;
     //
     @FieldConfig(type = FieldTypeEnum.UUID, fieldDesc = "发送用户id")
-    @Column()
     private String sendId;
     //
     @FieldConfig(type = FieldTypeEnum.UUID, fieldDesc = "接收用户id")
-    @Column(indexTypeEnum = IndexTypeEnum.STRING_INDEX)
     private String receiveId;
     //
     @FieldConfig(type = FieldTypeEnum.CHAR256, fieldDesc = "消息内容")
-    @Column()
     private String message;
     //
     @FieldConfig(type = FieldTypeEnum.TINY_INT_SIGNED, fieldDesc = "是否已读:0-未读,1-已读")
-    @Column(indexTypeEnum = IndexTypeEnum.STRING_INDEX)
     private byte isRead;
     //
     @FieldConfig(type = FieldTypeEnum.DATETIME, fieldDesc = "创建时间")
-    @Column()
     private String createTime;
 
     public String getMessageId() {

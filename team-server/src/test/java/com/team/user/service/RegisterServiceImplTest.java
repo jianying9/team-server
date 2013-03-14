@@ -30,8 +30,8 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
     @Test
     public void testRegister() {
         Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
-        parameterMap.put("userEmail", "10@91yong.com");
-        parameterMap.put("nickName", "10");
+        parameterMap.put("userEmail", "19900@91yong.com");
+        parameterMap.put("nickName", "11");
         parameterMap.put("password", SecurityUtils.encryptByMd5("000000"));
         TestHandler.execute(ActionNames.REGISTER, parameterMap);
     }
@@ -42,7 +42,7 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
         parameterMap.put("password", SecurityUtils.encryptByMd5("000000"));
         String nickName;
         String userEmail;
-        for (int index = 10000; index < 10100; index++) {
+        for (int index = 10100; index < 20000; index++) {
             if (index % 100 == 0) {
                 System.err.println(index);
             }

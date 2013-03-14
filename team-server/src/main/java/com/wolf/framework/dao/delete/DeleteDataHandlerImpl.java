@@ -1,6 +1,6 @@
 package com.wolf.framework.dao.delete;
 
-import com.wolf.framework.hbase.HTableHandler;
+import com.wolf.framework.lucene.HdfsLucene;
 import java.util.List;
 
 /**
@@ -9,21 +9,21 @@ import java.util.List;
  */
 public class DeleteDataHandlerImpl implements DeleteHandler {
     
-    private final HTableHandler hTableHandler;
-    private final String tableName;
+    private final HdfsLucene hdfsLucene;
     
-    public DeleteDataHandlerImpl(HTableHandler hTableHandler, String tableName) {
-        this.hTableHandler = hTableHandler;
-        this.tableName = tableName;
+    public DeleteDataHandlerImpl(HdfsLucene hdfsLucene) {
+        this.hdfsLucene = hdfsLucene;
     }
 
     @Override
     public void delete(String keyValue) {
-        this.hTableHandler.delete(tableName, keyValue);
+        this.hdfsLucene.deleteDocument(keyValue);
     }
 
     @Override
     public void batchDelete(List<String> keyValues) {
-        this.hTableHandler.delete(tableName, keyValues);
+        if(keyValues.isEmpty() == false) {
+            this.hdfsLucene.deleteDocument(keyValues);
+        }
     }
 }

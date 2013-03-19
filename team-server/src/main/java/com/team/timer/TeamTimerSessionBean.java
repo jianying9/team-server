@@ -37,10 +37,11 @@ public class TeamTimerSessionBean implements TeamTimerSessionBeanLocal {
         this.logger.info("timer:ClearSessionTimer------finished");
     }
 
+    @Schedule(minute = "5", second = "0", dayOfMonth = "*", month = "*", year = "*", hour = "1", dayOfWeek = "*")
     @Override
     public void mergeLuceneIndex() {
         this.logger.info("timer:mergeLuceneIndex------start");
-//        this.executeService(ActionNames.MERGE_LUCENE_INDEX, null);
+        this.executeService(ActionNames.MERGE_LUCENE_INDEX, null);
         this.logger.info("timer:mergeLuceneIndex------finished");
     }
 }

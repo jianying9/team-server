@@ -2,9 +2,9 @@ package com.team.listener;
 
 import com.sun.grizzly.websockets.WebSocketEngine;
 import com.team.config.TeamLoggerEnum;
-import com.team.context.ApplicationContextBuilder;
 import com.team.websocket.TeamGlobalApplication;
 import com.wolf.framework.context.ApplicationContext;
+import com.wolf.framework.context.ApplicationContextBuilder;
 import com.wolf.framework.logger.LogFactory;
 import com.wolf.framework.lucene.HdfsLucene;
 import java.util.List;
@@ -51,6 +51,11 @@ public class ApplicationListener implements ServletContextListener {
 //        }
 //        logger.info("Read system.properties finished.");
         configProperties.setProperty("appPath", appPath);
+        configProperties.setProperty("packageName", "com.team");
+        configProperties.setProperty("hbaseZookeeperQuorum", "192.168.19.42");
+        configProperties.setProperty("fsDefaultName", "hdfs://192.168.64.50:9000/");
+        configProperties.setProperty("dataBaseType", "JNDI");
+        configProperties.setProperty("dataBaseName", "jdbc/team");
         //2.初始化全局信息
         logger.info("Initializing applicationContext...");
         ApplicationContextBuilder applicationContextBuilder = new ApplicationContextBuilder(configProperties);

@@ -1,11 +1,12 @@
 package com.team.message.entity;
 
 import com.wolf.framework.dao.Entity;
+import com.wolf.framework.dao.annotation.ColumnConfig;
+import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.DaoConfig;
-import com.wolf.framework.dao.annotation.Key;
-import com.wolf.framework.service.parameter.FieldConfig;
+import com.wolf.framework.data.DataTypeEnum;
+import com.wolf.framework.service.parameter.ParameterConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
-import com.wolf.framework.service.parameter.type.FieldTypeEnum;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,23 +20,28 @@ tableName = "Message")
 @ParametersConfig()
 public class MessageEntity extends Entity {
 
-    @FieldConfig(type = FieldTypeEnum.UUID, fieldDesc = "消息id")
-    @Key()
+    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "消息id")
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.KEY, desc = "消息id")
     private String messageId;
     //
-    @FieldConfig(type = FieldTypeEnum.UUID, fieldDesc = "发送用户id")
+    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "发送用户id")
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.INDEX, desc = "发送用户id")
     private String sendId;
     //
-    @FieldConfig(type = FieldTypeEnum.UUID, fieldDesc = "接收用户id")
+    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "接收用户id")
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.INDEX, desc = "接收用户id")
     private String receiveId;
     //
-    @FieldConfig(type = FieldTypeEnum.CHAR256, fieldDesc = "消息内容")
+    @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_255, desc = "消息内容")
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.CHAR_255, desc = "消息内容")
     private String message;
     //
-    @FieldConfig(type = FieldTypeEnum.TINY_INT_SIGNED, fieldDesc = "是否已读:0-未读,1-已读")
-    private byte isRead;
+    @ParameterConfig(dateTypeEnum = DataTypeEnum.INT, desc = "消息内容")
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.INT, desc = "是否已读：0-未读；1-已读")
+    private int isRead;
     //
-    @FieldConfig(type = FieldTypeEnum.DATETIME, fieldDesc = "创建时间")
+    @ParameterConfig(dateTypeEnum = DataTypeEnum.DATE_TIME, desc = "创建时间")
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.DATE_TIME, desc = "创建时间")
     private String createTime;
 
     public String getMessageId() {
@@ -54,7 +60,7 @@ public class MessageEntity extends Entity {
         return message;
     }
 
-    public byte getIsRead() {
+    public int getIsRead() {
         return isRead;
     }
 
@@ -74,7 +80,7 @@ public class MessageEntity extends Entity {
         map.put("sendId", this.sendId);
         map.put("receiveId", this.receiveId);
         map.put("message", this.message);
-        map.put("isRead", Byte.toString(this.isRead));
+        map.put("isRead", Integer.toString(this.isRead));
         map.put("createTime", this.createTime);
         return map;
     }
@@ -85,7 +91,7 @@ public class MessageEntity extends Entity {
         this.sendId = entityMap.get("sendId");
         this.receiveId = entityMap.get("receiveId");
         this.message = entityMap.get("message");
-        this.isRead = Byte.parseByte(entityMap.get("isRead"));
+        this.isRead = Integer.parseInt(entityMap.get("message"));
         this.createTime = entityMap.get("createTime");
     }
 }

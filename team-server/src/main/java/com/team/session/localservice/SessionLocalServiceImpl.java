@@ -33,12 +33,12 @@ public final class SessionLocalServiceImpl implements SessionLocalService {
         entityMap.put("createTimeLong", Long.toString(createTimeLong));
         long invalidTimeLong = createTimeLong + 2592000000L;
         entityMap.put("invalidTimeLong", Long.toString(invalidTimeLong));
-        return this.sessionEntityDao.insert(entityMap);
+        return this.sessionEntityDao.insertAndInquire(entityMap);
     }
 
     private SessionEntity createSession(String userId, byte type) {
         SessionEntity sessionEntity = null;
-        InquireResult<SessionEntity> sessionResult = this.sessionEntityDao.inquireByColumn("userId", userId);
+        InquireResult<SessionEntity> sessionResult = this.sessionEntityDao.inquirePageByColumn("userId", userId);
         if (sessionResult.isEmpty()) {
             //web session 不存在 
             sessionEntity = this.insertSession(userId, type);

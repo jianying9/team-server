@@ -1,0 +1,12 @@
+----------------------------------------------------------------
+2013-04-02 06:11:55.527 GMT:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.6.2.1 - (999685): instance a816c00e-013d-c95f-8d06-0000023087a8 
+on database directory /data/derby/team  with class loader sun.misc.Launcher$AppClassLoader@1a45a877 
+Loaded from file:/home/aladdin/.m2/repository/org/apache/derby/derby/10.6.2.1/derby-10.6.2.1.jar
+java.vendor=Sun Microsystems Inc.
+java.runtime.version=1.6.0_33-b03
+Database Class Loader started - derby.database.classpath=''
+
+2013-04-02 06:11:56.824 GMT:
+Shutting down instance a816c00e-013d-c95f-8d06-0000023087a8 with class loader sun.misc.Launcher$AppClassLoader@1a45a877 
+----------------------------------------------------------------

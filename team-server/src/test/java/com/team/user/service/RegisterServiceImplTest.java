@@ -30,8 +30,8 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
     @Test
     public void testRegister() {
         Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
-        parameterMap.put("userEmail", "19900@91yong.com");
-        parameterMap.put("nickName", "11");
+        parameterMap.put("userEmail", "23@91yong.com");
+        parameterMap.put("nickName", "23");
         parameterMap.put("password", SecurityUtils.encryptByMd5("000000"));
         TestHandler.execute(ActionNames.REGISTER, parameterMap);
     }

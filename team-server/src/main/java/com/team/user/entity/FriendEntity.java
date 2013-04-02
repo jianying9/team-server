@@ -1,8 +1,10 @@
 package com.team.user.entity;
 
 import com.wolf.framework.dao.Entity;
+import com.wolf.framework.dao.annotation.ColumnConfig;
+import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.DaoConfig;
-import com.wolf.framework.dao.annotation.Key;
+import com.wolf.framework.data.DataTypeEnum;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,18 +15,21 @@ import java.util.Map;
  */
 @DaoConfig(
 tableName = "Friend",
-useCache = true,
+useCache = false,
 maxEntriesLocalHeap = 10000)
 public class FriendEntity extends Entity {
 
-    @Key()
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.KEY, desc = "记录ID")
     private String recordId;
     //
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.INDEX, desc = "所属用户ID")
     private String userId;
     //
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, desc = "好友ID")
     private String friendId;
     //
-    private String createTime;
+    @ColumnConfig(dataTypeEnum = DataTypeEnum.DATE_TIME, desc = "创建时间")
+    private long createTime;
 
     public String getRecordId() {
         return recordId;
@@ -38,7 +43,7 @@ public class FriendEntity extends Entity {
         return userId;
     }
 
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
@@ -53,7 +58,7 @@ public class FriendEntity extends Entity {
         map.put("recordId", this.recordId);
         map.put("friendId", this.friendId);
         map.put("userId", this.userId);
-        map.put("createTime", this.createTime);
+        map.put("createTime", Long.toString(this.createTime));
         return map;
     }
 
@@ -62,6 +67,6 @@ public class FriendEntity extends Entity {
         this.recordId = entityMap.get("recordId");
         this.friendId = entityMap.get("friendId");
         this.userId = entityMap.get("userId");
-        this.createTime = entityMap.get("createTime");
+        this.createTime = Long.parseLong(entityMap.get("createTime"));
     }
 }

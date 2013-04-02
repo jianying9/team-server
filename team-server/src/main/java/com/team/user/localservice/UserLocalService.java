@@ -16,7 +16,7 @@ public interface UserLocalService {
 
     public UserEntity inquireUserByUserEmail(String userEmail);
 
-    public InquireResult<UserEntity> searchUserByNickName(String lastPageIndex, int pageSize, String nickName);
+    public InquireResult<UserEntity> searchUserByNickName(String nickName, int pageIndex, int pageSize);
 
     public UserEntity inquireUserByUserId(String userId);
 
@@ -24,7 +24,7 @@ public interface UserLocalService {
 
     public UserEntity insertUser(Map<String, String> parameterMap);
 
-    public InquireResult<FriendEntity> inquireFriendByUserId(String userId, int pageSize);
+    public InquireResult<FriendEntity> inquireFriendByUserId(String userId, int pageIndex, int pageSize);
 
     public List<FriendEntity> inquireFriendByUserId(String userId);
 

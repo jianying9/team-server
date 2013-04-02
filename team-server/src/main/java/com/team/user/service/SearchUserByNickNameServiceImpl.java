@@ -32,10 +32,11 @@ public class SearchUserByNickNameServiceImpl implements Service {
     @Override
     public void execute(MessageContext messageContext) {
         String nickName = messageContext.getParameter("nickName");
-        InquireResult<UserEntity> userResult = this.userLocalService.searchUserByNickName(messageContext.getPageIndex(), messageContext.getPageSize(), nickName);
+        InquireResult<UserEntity> userResult = this.userLocalService.searchUserByNickName(nickName, messageContext.getPageIndex(), messageContext.getPageSize());
         if (!userResult.isEmpty()) {
             messageContext.setPageTotal(userResult.getTotal());
-            messageContext.setNextPageIndex(userResult.getNextPageIndex());
+            messageContext.setPageNum(userResult.getPageNum());
+            messageContext.setPageSize(userResult.getPageSize());
             messageContext.setEntityListData(userResult.getResultList());
         }
         messageContext.success();

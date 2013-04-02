@@ -1,6 +1,6 @@
 package com.team;
 
-import com.team.context.TestApplicationContextBuilder;
+import com.wolf.framework.context.ApplicationContextBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,6 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.MasterNotRunningException;
 import org.apache.hadoop.hbase.ZooKeeperConnectionException;
 import org.apache.hadoop.hbase.client.Delete;
@@ -35,7 +34,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  *
@@ -68,9 +66,15 @@ public class HbaseJUnitTest {
 //    @Test
     public void test() {
         Properties configProperties = new Properties();
-        configProperties.setProperty("appPath", "");
-        TestApplicationContextBuilder testApplicationContextBuilder = new TestApplicationContextBuilder(configProperties);
-        testApplicationContextBuilder.build();
+        configProperties.setProperty("appPath", "/test");
+        configProperties.setProperty("packageName", "com.team");
+        configProperties.setProperty("hbaseZookeeperQuorum", "192.168.19.42");
+        configProperties.setProperty("fsDefaultName", "hdfs://192.168.64.50:9000/");
+        configProperties.setProperty("dataBaseType", "EMBEDDED");
+        configProperties.setProperty("dataBaseName", "/data/derby/team");
+        ApplicationContextBuilder applicationContextBuilder = new ApplicationContextBuilder(configProperties);
+        applicationContextBuilder.build();
+        applicationContextBuilder.shutdownDatabase();
     }
 
 //    @Test

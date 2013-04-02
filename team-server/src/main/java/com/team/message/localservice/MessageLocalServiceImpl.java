@@ -30,7 +30,7 @@ public class MessageLocalServiceImpl implements MessageLocalService {
         long createTime = System.currentTimeMillis();
         insertMap.put("createTime", Long.toString(createTime));
         insertMap.put("isRead", "0");
-        return this.messageEntityDao.insert(insertMap);
+        return this.messageEntityDao.insertAndInquire(insertMap);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MessageLocalServiceImpl implements MessageLocalService {
 
     @Override
     public List<MessageEntity> inquireUnReadUserMessage(String userId) {
-        InquireResult<MessageEntity> messgeResult = this.messageEntityDao.inquireByColumns("receiveId", userId, "isRead", "0");
+        InquireResult<MessageEntity> messgeResult = this.messageEntityDao.inquirePageByColumns("receiveId", userId, "isRead", "0");
         return messgeResult.getResultList();
     }
 }

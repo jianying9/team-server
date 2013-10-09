@@ -4,12 +4,12 @@ import com.team.config.ActionNames;
 import com.team.config.ResponseFlagEnum;
 import com.team.user.entity.UserEntity;
 import com.team.user.localservice.UserLocalService;
-import com.wolf.framework.local.LocalService;
+import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.ParameterTypeEnum;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.session.Session;
-import com.wolf.framework.worker.MessageContext;
+import com.wolf.framework.worker.context.MessageContext;
 
 /**
  *
@@ -17,15 +17,15 @@ import com.wolf.framework.worker.MessageContext;
  */
 @ServiceConfig(
         actionName = ActionNames.INSERT_FRIEND,
-parameterTypeEnum = ParameterTypeEnum.PARAMETER,
-importantParameter = {"userId"},
-returnParameter = {"nickName", "userId"},
-parametersConfigs = {UserEntity.class},
-response = true,
-description = "增加好友")
+        parameterTypeEnum = ParameterTypeEnum.PARAMETER,
+        importantParameter = {"userId"},
+        returnParameter = {"nickName", "userId"},
+        parametersConfigs = {UserEntity.class},
+        response = true,
+        description = "增加好友")
 public class InsertFriendServiceImpl implements Service {
 
-    @LocalService()
+    @InjectLocalService()
     private UserLocalService userLocalService;
 
     @Override

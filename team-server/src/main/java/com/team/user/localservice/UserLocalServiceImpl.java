@@ -4,7 +4,7 @@ import com.team.user.entity.FriendEntity;
 import com.team.user.entity.UserEntity;
 import com.wolf.framework.dao.EntityDao;
 import com.wolf.framework.dao.InquireResult;
-import com.wolf.framework.dao.annotation.DAO;
+import com.wolf.framework.dao.annotation.InjectDao;
 import com.wolf.framework.dao.condition.Condition;
 import com.wolf.framework.dao.condition.InquireContext;
 import com.wolf.framework.dao.condition.OperateTypeEnum;
@@ -22,11 +22,15 @@ import java.util.Map;
 description = "用户操作内部接口")
 public class UserLocalServiceImpl implements UserLocalService {
 
-    @DAO(clazz = UserEntity.class)
+    @InjectDao(clazz = UserEntity.class)
     private EntityDao<UserEntity> userEntityDao;
     //
-    @DAO(clazz = FriendEntity.class)
+    @InjectDao(clazz = FriendEntity.class)
     private EntityDao<FriendEntity> friendEntityDao;
+    
+    @Override
+    public void init() {
+    }
 
     @Override
     public boolean isUserEmailExist(String userEmail) {

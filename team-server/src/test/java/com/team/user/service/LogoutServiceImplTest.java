@@ -2,10 +2,10 @@ package com.team.user.service;
 
 import com.team.AbstractTeamTest;
 import com.team.config.ActionNames;
-import com.wolf.framework.test.TestHandler;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  *
@@ -26,6 +26,8 @@ public class LogoutServiceImplTest extends AbstractTeamTest {
 
 //    @Test
     public void testLogout() {
-        TestHandler.execute(ActionNames.LOGOUT, null);
+        Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
+        String result = this.testHandler.execute(ActionNames.LOGOUT, parameterMap);
+        System.out.println(result);
     }
 }

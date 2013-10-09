@@ -3,6 +3,7 @@ package com.team.user.localservice;
 import com.team.user.entity.FriendEntity;
 import com.team.user.entity.UserEntity;
 import com.wolf.framework.dao.InquireResult;
+import com.wolf.framework.local.Local;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import java.util.Map;
  *
  * @author aladdin
  */
-public interface UserLocalService {
+public interface UserLocalService extends Local{
 
     public boolean isUserEmailExist(String userEmail);
 

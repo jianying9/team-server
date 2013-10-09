@@ -5,6 +5,7 @@ import com.wolf.framework.dao.annotation.ColumnConfig;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.DaoConfig;
 import com.wolf.framework.data.DataTypeEnum;
+import com.wolf.framework.service.parameter.Parameter;
 import com.wolf.framework.service.parameter.ParameterConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ tableName = "User",
 useCache = false,
 maxEntriesLocalHeap = 10000)
 @ParametersConfig()
-public class UserEntity extends Entity {
+public class UserEntity extends Entity implements Parameter{
 
     @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "用户id")
     @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.KEY, desc = "用户ID")

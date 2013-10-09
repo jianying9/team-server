@@ -1,6 +1,6 @@
 package com.team.config;
 
-import com.wolf.framework.config.*;
+import com.wolf.framework.config.ResponseFlagType;
 
 /**
  *

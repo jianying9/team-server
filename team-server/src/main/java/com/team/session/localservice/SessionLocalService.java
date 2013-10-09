@@ -1,12 +1,13 @@
 package com.team.session.localservice;
 
 import com.team.session.entity.SessionEntity;
+import com.wolf.framework.local.Local;
 
 /**
  *
  * @author aladdin
  */
-public interface SessionLocalService {
+public interface SessionLocalService extends Local {
 
     public byte SESSION_TYPE_WEB = 1;
     public byte SESSION_TYPE_IPHONE = 2;

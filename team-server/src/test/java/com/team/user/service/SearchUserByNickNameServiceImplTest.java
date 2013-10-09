@@ -2,12 +2,10 @@ package com.team.user.service;
 
 import com.team.AbstractTeamTest;
 import com.team.config.ActionNames;
-import com.wolf.framework.test.TestHandler;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  *
@@ -33,6 +31,7 @@ public class SearchUserByNickNameServiceImplTest extends AbstractTeamTest {
         parameterMap.put("nickName", "1");
         parameterMap.put("pageIndex", "31_1.0");
         parameterMap.put("pageSize", "10");
-        TestHandler.execute(ActionNames.SEARCH_USER_BY_NICKNAME, parameterMap);
+        String result = this.testHandler.execute(ActionNames.SEARCH_USER_BY_NICKNAME, parameterMap);
+        System.out.println(result);
     }
 }

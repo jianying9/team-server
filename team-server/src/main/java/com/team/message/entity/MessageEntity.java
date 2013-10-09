@@ -5,6 +5,7 @@ import com.wolf.framework.dao.annotation.ColumnConfig;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.DaoConfig;
 import com.wolf.framework.data.DataTypeEnum;
+import com.wolf.framework.service.parameter.Parameter;
 import com.wolf.framework.service.parameter.ParameterConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
 import java.util.HashMap;
@@ -16,9 +17,9 @@ import java.util.Map;
  * @author aladdin
  */
 @DaoConfig(
-tableName = "Message")
+        tableName = "Message")
 @ParametersConfig()
-public class MessageEntity extends Entity {
+public class MessageEntity extends Entity implements Parameter {
 
     @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "消息id")
     @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.KEY, desc = "消息id")

@@ -5,14 +5,13 @@ import com.team.config.ResponseFlagEnum;
 import com.team.user.entity.FriendEntity;
 import com.team.user.entity.UserEntity;
 import com.team.user.localservice.UserLocalService;
-import com.wolf.framework.local.LocalService;
-import com.wolf.framework.service.BroadcastTypeEnum;
+import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.ParameterTypeEnum;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.service.SessionHandleTypeEnum;
 import com.wolf.framework.session.Session;
-import com.wolf.framework.worker.MessageContext;
+import com.wolf.framework.worker.context.MessageContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +21,16 @@ import java.util.List;
  */
 @ServiceConfig(
         actionName = ActionNames.LOGOUT,
-parameterTypeEnum = ParameterTypeEnum.NO_PARAMETER,
-returnParameter = {"nickName", "userId"},
-parametersConfigs = {UserEntity.class},
-sessionHandleTypeEnum = SessionHandleTypeEnum.REMOVE,
-response = true,
-broadcast = true,
-boradcastTypeEnum = BroadcastTypeEnum.MULTI,
-description = "用户退出")
+        parameterTypeEnum = ParameterTypeEnum.NO_PARAMETER,
+        returnParameter = {"nickName", "userId"},
+        parametersConfigs = {UserEntity.class},
+        sessionHandleTypeEnum = SessionHandleTypeEnum.REMOVE,
+        response = true,
+        broadcast = true,
+        description = "用户退出")
 public class LogoutServiceImpl implements Service {
 
-    @LocalService()
+    @InjectLocalService()
     private UserLocalService userLocalService;
 
     @Override
@@ -50,9 +48,9 @@ public class LogoutServiceImpl implements Service {
                 for (FriendEntity friendEntity : friendEntityList) {
                     friendIdList.add(friendEntity.getFriendId());
                 }
-                messageContext.setBroadcastUserIdList(friendIdList);
+                messageContext.addBroadcastUserIdList(friendIdList);
             }
-            messageContext.setSession(null);
+            messageContext.setNewSession(null);
             messageContext.setEntityData(userEntity);
             messageContext.success();
         }

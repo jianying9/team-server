@@ -5,7 +5,7 @@ import com.team.user.entity.UserEntity;
 import com.wolf.framework.service.ParameterTypeEnum;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
-import com.wolf.framework.worker.MessageContext;
+import com.wolf.framework.worker.context.MessageContext;
 
 /**
  *

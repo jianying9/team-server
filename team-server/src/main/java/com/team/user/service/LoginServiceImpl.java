@@ -5,14 +5,14 @@ import com.team.config.ResponseFlagEnum;
 import com.team.session.SessionImpl;
 import com.team.user.entity.UserEntity;
 import com.team.user.localservice.UserLocalService;
-import com.wolf.framework.local.LocalService;
+import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.BroadcastTypeEnum;
 import com.wolf.framework.service.ParameterTypeEnum;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.service.SessionHandleTypeEnum;
 import com.wolf.framework.session.Session;
-import com.wolf.framework.worker.MessageContext;
+import com.wolf.framework.worker.context.MessageContext;
 import java.util.Map;
 
 /**
@@ -28,11 +28,10 @@ parametersConfigs = {UserEntity.class},
 validateSession = false,
 sessionHandleTypeEnum = SessionHandleTypeEnum.SAVE,
 response = true,
-boradcastTypeEnum = BroadcastTypeEnum.MULTI,
 description = "用户登录")
 public class LoginServiceImpl implements Service {
 
-    @LocalService()
+    @InjectLocalService()
     private UserLocalService userLocalService;
 
     @Override
@@ -50,7 +49,7 @@ public class LoginServiceImpl implements Service {
                 String userId = userEntity.getUserId();
                 //密码正确
                 Session session = new SessionImpl(userId);
-                messageContext.setSession(session);
+                messageContext.setNewSession(session);
                 messageContext.setEntityData(userEntity);
                 messageContext.success();
             } else {

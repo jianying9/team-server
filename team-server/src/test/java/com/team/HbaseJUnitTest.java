@@ -1,5 +1,6 @@
 package com.team;
 
+import com.wolf.framework.context.ApplicationContext;
 import com.wolf.framework.context.ApplicationContextBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class HbaseJUnitTest {
         configProperties.setProperty("dataBaseName", "/data/derby/team");
         ApplicationContextBuilder applicationContextBuilder = new ApplicationContextBuilder(configProperties);
         applicationContextBuilder.build();
-        applicationContextBuilder.shutdownDatabase();
+        ApplicationContext.CONTEXT.shutdownDatabase();
     }
 
 //    @Test

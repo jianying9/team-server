@@ -2,8 +2,7 @@ package com.team.message.localservice;
 
 import com.team.message.entity.MessageEntity;
 import com.wolf.framework.dao.EntityDao;
-import com.wolf.framework.dao.InquireResult;
-import com.wolf.framework.dao.annotation.DAO;
+import com.wolf.framework.dao.annotation.InjectDao;
 import com.wolf.framework.local.LocalServiceConfig;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +14,15 @@ import java.util.Map;
  */
 @LocalServiceConfig(
         interfaceInfo = MessageLocalService.class,
-description = "消息操作内部接口")
+        description = "消息操作内部接口")
 public class MessageLocalServiceImpl implements MessageLocalService {
 
-    @DAO(clazz = MessageEntity.class)
+    @InjectDao(clazz = MessageEntity.class)
     private EntityDao<MessageEntity> messageEntityDao;
+
+    @Override
+    public void init() {
+    }
 
     @Override
     public MessageEntity insertAndInquireUserMessage(String sendId, String receiveId, String message) {
@@ -43,7 +46,7 @@ public class MessageLocalServiceImpl implements MessageLocalService {
 
     @Override
     public List<MessageEntity> inquireUnReadUserMessage(String userId) {
-        InquireResult<MessageEntity> messgeResult = this.messageEntityDao.inquirePageByColumns("receiveId", userId, "isRead", "0");
-        return messgeResult.getResultList();
+        List<MessageEntity> messgeResult = this.messageEntityDao.inquireByColumns("receiveId", userId, "isRead", "0");
+        return messgeResult;
     }
 }

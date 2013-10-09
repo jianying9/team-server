@@ -3,7 +3,10 @@ package com.team.session.localservice;
 import com.team.session.entity.SessionEntity;
 import com.wolf.framework.dao.EntityDao;
 import com.wolf.framework.dao.InquireResult;
-import com.wolf.framework.dao.annotation.DAO;
+import com.wolf.framework.dao.annotation.InjectDao;
+import com.wolf.framework.dao.condition.Condition;
+import com.wolf.framework.dao.condition.InquireContext;
+import com.wolf.framework.dao.condition.OperateTypeEnum;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +20,12 @@ import java.util.Map;
 //description = "session内部接口")
 public final class SessionLocalServiceImpl implements SessionLocalService {
 
-    @DAO(clazz = SessionEntity.class)
+    @InjectDao(clazz = SessionEntity.class)
     private EntityDao<SessionEntity> sessionEntityDao;
+
+    @Override
+    public void init() {
+    }
 
     @Override
     public SessionEntity inquireBySessionId(String sessionId) {
@@ -38,7 +45,9 @@ public final class SessionLocalServiceImpl implements SessionLocalService {
 
     private SessionEntity createSession(String userId, byte type) {
         SessionEntity sessionEntity = null;
-        InquireResult<SessionEntity> sessionResult = this.sessionEntityDao.inquirePageByColumn("userId", userId);
+        InquireContext inquireContext = new InquireContext();
+        inquireContext.addCondition(new Condition("userId", OperateTypeEnum.EQUAL, userId));
+        InquireResult<SessionEntity> sessionResult = this.sessionEntityDao.inquirePageByCondition(inquireContext);
         if (sessionResult.isEmpty()) {
             //web session 不存在 
             sessionEntity = this.insertSession(userId, type);

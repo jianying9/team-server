@@ -1,11 +1,9 @@
 package com.team.session.service;
 
-import com.team.config.ActionNames;
 import com.team.session.localservice.SessionLocalService;
-import com.wolf.framework.local.LocalService;
+import com.wolf.framework.local.InjectLocalService;
 import com.wolf.framework.service.Service;
-import com.wolf.framework.service.ServiceConfig;
-import com.wolf.framework.worker.MessageContext;
+import com.wolf.framework.worker.context.MessageContext;
 
 /**
  *
@@ -17,7 +15,7 @@ import com.wolf.framework.worker.MessageContext;
 //description = "清除无效的session")
 public class ClearInvolidSessionServiceImpl implements Service {
 
-    @LocalService()
+    @InjectLocalService()
     private SessionLocalService sessionLocalService;
 
     @Override

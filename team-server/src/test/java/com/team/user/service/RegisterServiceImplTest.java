@@ -2,7 +2,6 @@ package com.team.user.service;
 
 import com.team.AbstractTeamTest;
 import com.team.config.ActionNames;
-import com.wolf.framework.test.TestHandler;
 import com.wolf.framework.utils.SecurityUtils;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
 
     public RegisterServiceImplTest() {
     }
-    
+
     @Before
     public void setUp() {
     }
@@ -33,7 +32,8 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
         parameterMap.put("userEmail", "23@91yong.com");
         parameterMap.put("nickName", "23");
         parameterMap.put("password", SecurityUtils.encryptByMd5("000000"));
-        TestHandler.execute(ActionNames.REGISTER, parameterMap);
+        String result = this.testHandler.execute(ActionNames.REGISTER, parameterMap);
+        System.out.println(result);
     }
 
 //    @Test
@@ -42,6 +42,7 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
         parameterMap.put("password", SecurityUtils.encryptByMd5("000000"));
         String nickName;
         String userEmail;
+        String result;
         for (int index = 10100; index < 20000; index++) {
             if (index % 100 == 0) {
                 System.err.println(index);
@@ -51,7 +52,8 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
             userEmail = nickName.concat("@91yong.com");
             parameterMap.put("userEmail", userEmail);
             parameterMap.put("nickName", nickName);
-            TestHandler.execute(ActionNames.REGISTER, parameterMap);
+            result = this.testHandler.execute(ActionNames.REGISTER, parameterMap);
+            System.out.println(result);
         }
     }
 }

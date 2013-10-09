@@ -3,7 +3,7 @@ package com.team.system.service;
 import com.team.config.ActionNames;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
-import com.wolf.framework.worker.MessageContext;
+import com.wolf.framework.worker.context.MessageContext;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +18,9 @@ import javax.sql.DataSource;
  */
 @ServiceConfig(
         actionName = ActionNames.MERGE_LUCENE_INDEX,
-validateSession = false,
-response = true,
-description = "合并hbase的lucene索引")
+        validateSession = false,
+        response = true,
+        description = "合并hbase的lucene索引")
 public class MergeLuceneIndexServiceImpl implements Service {
 
     @Override

@@ -7,7 +7,7 @@ import com.wolf.framework.service.ParameterTypeEnum;
 import com.wolf.framework.service.Service;
 import com.wolf.framework.service.ServiceConfig;
 import com.wolf.framework.session.Session;
-import com.wolf.framework.worker.MessageContext;
+import com.wolf.framework.worker.context.MessageContext;
 import java.util.Map;
 
 /**
@@ -32,7 +32,7 @@ public class SendCanvasCommandServiceImpl implements Service {
         Map<String, String> parameterMap = messageContext.getParameterMap();
         String receiveId = parameterMap.get("receiveId");
         parameterMap.put("sendId", userId);
-        messageContext.setBoradcastUserId(receiveId);
+        messageContext.addBroadcastUserId(receiveId);
         messageContext.setMapData(parameterMap);
         messageContext.success();
     }

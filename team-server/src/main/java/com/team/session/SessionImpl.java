@@ -8,7 +8,7 @@ import com.wolf.framework.session.Session;
  */
 public class SessionImpl implements Session{
     
-    private String userId;
+    private final String userId;
 
     public SessionImpl(String userId) {
         this.userId = userId;

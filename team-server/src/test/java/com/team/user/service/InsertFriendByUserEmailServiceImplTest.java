@@ -12,9 +12,9 @@ import org.junit.Test;
  *
  * @author aladdin
  */
-public class InsertFriendServiceImplTest extends AbstractTeamTest {
+public class InsertFriendByUserEmailServiceImplTest extends AbstractTeamTest {
 
-    public InsertFriendServiceImplTest() {
+    public InsertFriendByUserEmailServiceImplTest() {
     }
 
     @Before
@@ -29,8 +29,8 @@ public class InsertFriendServiceImplTest extends AbstractTeamTest {
     @Test
     public void testInsertFriend() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
-        parameterMap.put("userId", "9dee23d9-1fd9-4ac1-86c0-e9a027a623ed");
-        String result = this.testHandler.execute(ActionNames.INSERT_FRIEND, parameterMap);
+        parameterMap.put("userEmail", "10020@91yong.com");
+        String result = this.testHandler.execute(ActionNames.INSERT_FRIEND_BY_USER_EMAIL, parameterMap);
         System.out.println(result);
     }
 }

@@ -24,9 +24,9 @@ public class AssertFriendOnlineServiceImpl implements Service {
     @Override
     public void execute(MessageContext messageContext) {
         String userId = messageContext.getParameter("userId");
+        messageContext.setMapData(messageContext.getParameterMap());
         boolean result = messageContext.isOnline(userId);
         if (result) {
-            messageContext.setMapData(messageContext.getParameterMap());
             messageContext.success();
         }
     }

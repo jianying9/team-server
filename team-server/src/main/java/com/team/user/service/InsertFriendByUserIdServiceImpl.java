@@ -16,14 +16,14 @@ import com.wolf.framework.worker.context.MessageContext;
  * @author aladdin
  */
 @ServiceConfig(
-        actionName = ActionNames.INSERT_FRIEND,
+        actionName = ActionNames.INSERT_FRIEND_BY_USER_ID,
         parameterTypeEnum = ParameterTypeEnum.PARAMETER,
         importantParameter = {"userId"},
         returnParameter = {"nickName", "userId"},
         parametersConfigs = {UserEntity.class},
         response = true,
-        description = "增加好友")
-public class InsertFriendServiceImpl implements Service {
+        description = "根据userId增加好友")
+public class InsertFriendByUserIdServiceImpl implements Service {
 
     @InjectLocalService()
     private UserLocalService userLocalService;

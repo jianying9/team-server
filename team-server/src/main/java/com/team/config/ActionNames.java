@@ -17,7 +17,9 @@ public class ActionNames {
     //退出
     public final static String LOGOUT = "LOGOUT";
     //增加好友
-    public final static String  INSERT_FRIEND = "INSERT_FRIEND";
+    public final static String  INSERT_FRIEND_BY_USER_ID = "INSERT_FRIEND_BY_USER_ID";
+    //增加好友
+    public final static String  INSERT_FRIEND_BY_USER_EMAIL = "INSERT_FRIEND_BY_USER_EMAIL";
     //查询当前用户好友列表
     public final static String  INQUIRE_FRIEND = "INQUIRE_FRIEND";
     //查询某个好友是否在线

@@ -23,6 +23,7 @@ import java.util.List;
         returnParameter = {"nickName", "userId"},
         parametersConfigs = {UserEntity.class},
         response = true,
+        page = true,
         description = "查找当前用户的好友")
 public class InquireFriendServiceImpl implements Service {
 

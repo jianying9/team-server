@@ -26,7 +26,7 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
     public void tearDown() {
     }
 
-    @Test
+//    @Test
     public void testRegister() {
         Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
         parameterMap.put("userEmail", "23@91yong.com");
@@ -36,14 +36,14 @@ public class RegisterServiceImplTest extends AbstractTeamTest {
         System.out.println(result);
     }
 
-//    @Test
+    @Test
     public void testRegisterBatch() {
         Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
         parameterMap.put("password", SecurityUtils.encryptByMd5("000000"));
         String nickName;
         String userEmail;
         String result;
-        for (int index = 10100; index < 20000; index++) {
+        for (int index = 10000; index < 20000; index++) {
             if (index % 100 == 0) {
                 System.err.println(index);
             }

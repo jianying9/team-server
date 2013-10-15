@@ -42,8 +42,8 @@ public class LogoutServiceImpl implements Service {
             messageContext.setFlag(ResponseFlagEnum.FAILURE_USER_ID_NOT_EXIST);
         } else {
             //通知好友
-            List<FriendEntity> friendEntityList = this.userLocalService.inquireFriendByUserId(userId);
-            if (!friendEntityList.isEmpty()) {
+            List<FriendEntity> friendEntityList = this.userLocalService.inquireFriendByUserId(userId, 1, 100);
+            if (friendEntityList.isEmpty() == false) {
                 List<String> friendIdList = new ArrayList<String>(friendEntityList.size());
                 for (FriendEntity friendEntity : friendEntityList) {
                     friendIdList.add(friendEntity.getFriendId());

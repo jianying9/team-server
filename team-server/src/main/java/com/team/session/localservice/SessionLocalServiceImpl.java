@@ -3,7 +3,7 @@ package com.team.session.localservice;
 import com.team.session.entity.SessionEntity;
 import com.wolf.framework.dao.EntityDao;
 import com.wolf.framework.dao.InquireResult;
-import com.wolf.framework.dao.annotation.InjectDao;
+import com.wolf.framework.dao.annotation.InjectRDao;
 import com.wolf.framework.dao.condition.Condition;
 import com.wolf.framework.dao.condition.InquireContext;
 import com.wolf.framework.dao.condition.OperateTypeEnum;
@@ -20,7 +20,7 @@ import java.util.Map;
 //description = "session内部接口")
 public final class SessionLocalServiceImpl implements SessionLocalService {
 
-    @InjectDao(clazz = SessionEntity.class)
+    @InjectRDao(clazz = SessionEntity.class)
     private EntityDao<SessionEntity> sessionEntityDao;
 
     @Override

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -24,7 +25,7 @@ public class LogoutServiceImplTest extends AbstractTeamTest {
     public void tearDown() {
     }
 
-//    @Test
+    @Test
     public void testLogout() {
         Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
         String result = this.testHandler.execute(ActionNames.LOGOUT, parameterMap);

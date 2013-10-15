@@ -1,9 +1,9 @@
 package com.team.user.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.dao.annotation.ColumnConfig;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
-import com.wolf.framework.dao.annotation.DaoConfig;
+import com.wolf.framework.dao.annotation.RColumnConfig;
+import com.wolf.framework.dao.annotation.RDaoConfig;
 import com.wolf.framework.data.DataTypeEnum;
 import com.wolf.framework.service.parameter.Parameter;
 import com.wolf.framework.service.parameter.ParameterConfig;
@@ -16,31 +16,29 @@ import java.util.Map;
  *
  * @author aladdin
  */
-@DaoConfig(
-tableName = "User",
-useCache = false,
-maxEntriesLocalHeap = 10000)
+@RDaoConfig(
+        tableName = "User")
 @ParametersConfig()
-public class UserEntity extends Entity implements Parameter{
+public class UserEntity extends Entity implements Parameter {
 
     @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "用户id")
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.KEY, desc = "用户ID")
+    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "用户ID")
     private String userId;
     //
     @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_32, desc = "昵称")
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.CHAR_32, columnTypeEnum = ColumnTypeEnum.INDEX, desc = "昵称")
+    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "昵称")
     private String nickName;
     //
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.CHAR_32, desc = "密码md5")
+    @RColumnConfig(desc = "密码md5")
     @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_32, desc = "密码md5")
     private String password;
     //
     @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_60, desc = "邮箱")
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.CHAR_60, columnTypeEnum = ColumnTypeEnum.INDEX, desc = "邮箱")
+    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "邮箱")
     private String userEmail;
     //
     @ParameterConfig(dateTypeEnum = DataTypeEnum.DATE_TIME, desc = "注册时间")
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.DATE_TIME, desc = "注册时间")
+    @RColumnConfig(desc = "注册时间")
     private long createTime;
 
     public String getUserId() {

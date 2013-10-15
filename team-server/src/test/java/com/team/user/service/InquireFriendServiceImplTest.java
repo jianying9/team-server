@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -25,7 +26,7 @@ public class InquireFriendServiceImplTest extends AbstractTeamTest {
     }
     //
 
-//    @Test
+    @Test
     public void testInquireFriend() {
         Map<String, String> parameterMap = new HashMap<String, String>(4, 1);
         String result = this.testHandler.execute(ActionNames.INQUIRE_FRIEND, parameterMap);

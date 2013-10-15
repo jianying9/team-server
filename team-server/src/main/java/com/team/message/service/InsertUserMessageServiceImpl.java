@@ -19,7 +19,7 @@ import java.util.Map;
         actionName = ActionNames.INSERT_USER_MESSAGE,
         parameterTypeEnum = ParameterTypeEnum.PARAMETER,
         importantParameter = {"receiveId", "message"},
-        returnParameter = {"messageId", "sendId", "receiveId", "message", "isRead", "createTime"},
+        returnParameter = {"messageId", "sendId", "receiveId", "message", "createTime"},
         parametersConfigs = {MessageEntity.class},
         response = true,
         broadcast = true,

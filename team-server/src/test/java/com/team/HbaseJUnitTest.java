@@ -75,7 +75,7 @@ public class HbaseJUnitTest {
         configProperties.setProperty("dataBaseName", "/data/derby/team");
         ApplicationContextBuilder applicationContextBuilder = new ApplicationContextBuilder(configProperties);
         applicationContextBuilder.build();
-        ApplicationContext.CONTEXT.shutdownDatabase();
+        ApplicationContext.CONTEXT.contextDestroyed();
     }
 
 //    @Test

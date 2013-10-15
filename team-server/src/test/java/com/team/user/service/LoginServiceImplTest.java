@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -24,10 +25,10 @@ public class LoginServiceImplTest extends AbstractTeamTest {
     public void tearDown() {
     }
 
-//    @Test
+    @Test
     public void testLogin() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
-        parameterMap.put("userEmail", "1@91yong.com");
+        parameterMap.put("userEmail", "23@91yong.com");
         parameterMap.put("password", "670b14728ad9902aecba32e22fa4f6bd");
         String result = this.testHandler.execute(ActionNames.LOGIN, parameterMap);
         System.out.println(result);

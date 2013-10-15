@@ -2,12 +2,9 @@ package com.team.user.localservice;
 
 import com.team.user.entity.FriendEntity;
 import com.team.user.entity.UserEntity;
-import com.wolf.framework.dao.EntityDao;
-import com.wolf.framework.dao.InquireResult;
-import com.wolf.framework.dao.annotation.InjectDao;
-import com.wolf.framework.dao.condition.Condition;
-import com.wolf.framework.dao.condition.InquireContext;
-import com.wolf.framework.dao.condition.OperateTypeEnum;
+import com.wolf.framework.dao.REntityDao;
+import com.wolf.framework.dao.annotation.InjectRDao;
+import com.wolf.framework.dao.condition.InquireRedisIndexContext;
 import com.wolf.framework.local.LocalServiceConfig;
 import java.util.HashMap;
 import java.util.List;
@@ -19,23 +16,27 @@ import java.util.Map;
  */
 @LocalServiceConfig(
         interfaceInfo = UserLocalService.class,
-description = "用户操作内部接口")
+        description = "用户操作内部接口")
 public class UserLocalServiceImpl implements UserLocalService {
 
-    @InjectDao(clazz = UserEntity.class)
-    private EntityDao<UserEntity> userEntityDao;
+    @InjectRDao(clazz = UserEntity.class)
+    private REntityDao<UserEntity> userEntityDao;
     //
-    @InjectDao(clazz = FriendEntity.class)
-    private EntityDao<FriendEntity> friendEntityDao;
-    
+    @InjectRDao(clazz = FriendEntity.class)
+    private REntityDao<FriendEntity> friendEntityDao;
+
     @Override
     public void init() {
     }
 
     @Override
     public boolean isUserEmailExist(String userEmail) {
-        int num = this.userEntityDao.count("userEmail", userEmail);
-        return num == 0 ? false : true;
+        boolean result = false;
+        long num = this.userEntityDao.countByIndex("userEmail", userEmail);
+        if (num > 0) {
+            result = true;
+        }
+        return result;
     }
 
     @Override
@@ -58,7 +59,8 @@ public class UserLocalServiceImpl implements UserLocalService {
     @Override
     public UserEntity inquireUserByUserEmail(String userEmail) {
         UserEntity userEntity;
-        List<UserEntity> userEntityList = this.userEntityDao.inquireByColumn("userEmail", userEmail);
+        InquireRedisIndexContext inquireRedisIndexContext = new InquireRedisIndexContext("userEmail", userEmail);
+        List<UserEntity> userEntityList = this.userEntityDao.inquireByIndex(inquireRedisIndexContext);
         if (userEntityList.isEmpty()) {
             userEntity = null;
         } else {
@@ -68,38 +70,24 @@ public class UserLocalServiceImpl implements UserLocalService {
     }
 
     @Override
-    public InquireResult<UserEntity> searchUserByNickName(String nickName, int pageIndex, int pageSize) {
-        InquireContext inquireContext = new InquireContext();
-        inquireContext.setPageSize(pageSize);
-        inquireContext.setPageIndex(pageIndex);
-        Condition condition = new Condition("nickName", OperateTypeEnum.LIKE, nickName);
-        inquireContext.addCondition(condition);
-        return this.userEntityDao.inquirePageByCondition(inquireContext);
-    }
-
-    @Override
-    public InquireResult<FriendEntity> inquireFriendByUserId(String userId, int pageIndex, int pageSize) {
-        InquireContext inquireContext = new InquireContext();
-        inquireContext.setPageSize(pageSize);
-        inquireContext.setPageIndex(pageIndex);
-        Condition condition = new Condition("userId", OperateTypeEnum.EQUAL, userId);
-        inquireContext.addCondition(condition);
-        return this.friendEntityDao.inquirePageByCondition(inquireContext);
-    }
-
-    @Override
-    public List<FriendEntity> inquireFriendByUserId(String userId) {
-        InquireContext inquireContext = new InquireContext();
-        inquireContext.setPageSize(100);
-        Condition condition = new Condition("userId", OperateTypeEnum.EQUAL, userId);
-        inquireContext.addCondition(condition);
-        return this.friendEntityDao.inquireByCondition(inquireContext);
+    public List<FriendEntity> inquireFriendByUserId(String userId, int pageIndex, int pageSize) {
+        InquireRedisIndexContext inquireRedisIndexContext = new InquireRedisIndexContext("userId", userId);
+        inquireRedisIndexContext.setPageSize(pageSize);
+        inquireRedisIndexContext.setPageIndex(pageIndex);
+        return this.friendEntityDao.inquireByIndex(inquireRedisIndexContext);
     }
 
     @Override
     public boolean isFriendIdExist(String userId, String friendId) {
-        int num = this.friendEntityDao.count("userId", userId, "friendId", friendId);
-        return num == 0 ? false : true;
+        boolean result = false;
+        List<FriendEntity> friendEntityList = this.inquireFriendByUserId(userId, 1, 100);
+        for (FriendEntity friendEntity : friendEntityList) {
+            if (friendEntity.getFriendId().equals(friendId)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override

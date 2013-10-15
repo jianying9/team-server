@@ -3,6 +3,7 @@ package com.team.session.entity;
 import com.wolf.framework.dao.Entity;
 import com.wolf.framework.data.DataTypeEnum;
 import com.wolf.framework.service.parameter.ParameterConfig;
+import com.wolf.framework.service.parameter.ParametersConfig;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,16 +12,16 @@ import java.util.Map;
  *
  * @author aladdin
  */
-//@DaoConfig(
-//tableName = "Session")
-//@ParametersConfig()
+//@RDaoConfig(
+//        tableName = "Session")
+@ParametersConfig()
 public class SessionEntity extends Entity {
 
     @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "sessionId")
     private String sessionId;
     @ParameterConfig(dateTypeEnum = DataTypeEnum.LONG, desc = "用户id")
     private String userId;
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.INT, desc = "客户端类型:1:web,2:mobile,3:desktop,4:flex")
+    @ParameterConfig(dateTypeEnum = DataTypeEnum.INT, desc = "客户端类型:1:web,2:mobile,3:desktop")
     private int type;
     @ParameterConfig(dateTypeEnum = DataTypeEnum.DATE_TIME, desc = "创建时间")
     private long createTime;

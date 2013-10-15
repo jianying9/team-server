@@ -1,10 +1,9 @@
 package com.team.user.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.dao.annotation.ColumnConfig;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
-import com.wolf.framework.dao.annotation.DaoConfig;
-import com.wolf.framework.data.DataTypeEnum;
+import com.wolf.framework.dao.annotation.RColumnConfig;
+import com.wolf.framework.dao.annotation.RDaoConfig;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,22 +12,20 @@ import java.util.Map;
  *
  * @author aladdin
  */
-@DaoConfig(
-tableName = "Friend",
-useCache = false,
-maxEntriesLocalHeap = 10000)
+@RDaoConfig(
+        tableName = "Friend")
 public class FriendEntity extends Entity {
 
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.KEY, desc = "记录ID")
+    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "记录ID")
     private String recordId;
     //
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, columnTypeEnum = ColumnTypeEnum.INDEX, desc = "所属用户ID")
+    @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "所属用户ID")
     private String userId;
     //
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.UUID, desc = "好友ID")
+    @RColumnConfig(desc = "好友ID")
     private String friendId;
     //
-    @ColumnConfig(dataTypeEnum = DataTypeEnum.DATE_TIME, desc = "创建时间")
+    @RColumnConfig(desc = "创建时间")
     private long createTime;
 
     public String getRecordId() {

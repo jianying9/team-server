@@ -33,8 +33,8 @@ public class InquireFriendServiceImpl implements Service {
     public void execute(MessageContext messageContext) {
         Session session = messageContext.getSession();
         String userId = session.getUserId();
-        List<FriendEntity> friendEntityList = this.userLocalService.inquireFriendByUserId(userId);
-        if (!friendEntityList.isEmpty()) {
+        List<FriendEntity> friendEntityList = this.userLocalService.inquireFriendByUserId(userId, 1, 100);
+        if (friendEntityList.isEmpty() == false) {
             //如果存在好友
             List<String> friendIdList = new ArrayList<String>(friendEntityList.size());
             for (FriendEntity friendEntity : friendEntityList) {

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  *
@@ -25,10 +26,10 @@ public class InsertFriendServiceImplTest extends AbstractTeamTest {
     }
     //
 
-//    @Test
+    @Test
     public void testInsertFriend() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
-        parameterMap.put("userId", "4a483823-1e07-4a30-8073-eaa265a28790");
+        parameterMap.put("userId", "9dee23d9-1fd9-4ac1-86c0-e9a027a623ed");
         String result = this.testHandler.execute(ActionNames.INSERT_FRIEND, parameterMap);
         System.out.println(result);
     }

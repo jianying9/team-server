@@ -28,7 +28,7 @@ public class LoginServiceImplTest extends AbstractTeamTest {
     @Test
     public void testLogin() {
         Map<String, String> parameterMap = new HashMap<String, String>(2, 1);
-        parameterMap.put("userEmail", "23333@91yong.com");
+        parameterMap.put("userEmail", "10000@91yong.com");
         parameterMap.put("password", "670b14728ad9902aecba32e22fa4f6bd");
         String result = this.testHandler.execute(ActionNames.LOGIN, parameterMap);
         System.out.println(result);

@@ -1,5 +1,6 @@
 package com.team.user.service;
 
+import com.team.config.ActionGroupNames;
 import com.team.config.ActionNames;
 import com.team.user.entity.UserEntity;
 import com.wolf.framework.service.ParameterTypeEnum;
@@ -18,6 +19,7 @@ importantParameter = {"userId"},
 returnParameter = {"userId"},
 parametersConfigs = {UserEntity.class},
 response = true,
+group = ActionGroupNames.FRIEND,
 description = "查询某个好友是否在线")
 public class AssertFriendOnlineServiceImpl implements Service {
 

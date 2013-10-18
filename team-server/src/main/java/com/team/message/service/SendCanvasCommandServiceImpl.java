@@ -1,5 +1,6 @@
 package com.team.message.service;
 
+import com.team.config.ActionGroupNames;
 import com.team.config.ActionNames;
 import com.team.message.entity.MessageEntity;
 import com.team.message.parameter.CanvasParameter;
@@ -16,13 +17,14 @@ import java.util.Map;
  */
 @ServiceConfig(
         actionName = ActionNames.SEND_CANVAS_COMMAND,
-parameterTypeEnum = ParameterTypeEnum.PARAMETER,
-importantParameter = {"receiveId", "x", "y"},
-returnParameter = {"sendId", "receiveId", "x", "y"},
-parametersConfigs = {MessageEntity.class, CanvasParameter.class},
-response = false,
-broadcast = true,
-description = "发送画布指令")
+        parameterTypeEnum = ParameterTypeEnum.PARAMETER,
+        importantParameter = {"receiveId", "x", "y"},
+        returnParameter = {"sendId", "receiveId", "x", "y"},
+        parametersConfigs = {MessageEntity.class, CanvasParameter.class},
+        response = false,
+        broadcast = true,
+        group = ActionGroupNames.MESSAGE,
+        description = "发送画布指令")
 public class SendCanvasCommandServiceImpl implements Service {
 
     @Override

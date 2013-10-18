@@ -1,5 +1,6 @@
 package com.team.message.service;
 
+import com.team.config.ActionGroupNames;
 import com.team.config.ActionNames;
 import com.team.message.entity.MessageEntity;
 import com.team.message.localservice.MessageLocalService;
@@ -23,6 +24,7 @@ import java.util.Map;
         parametersConfigs = {MessageEntity.class},
         response = true,
         broadcast = true,
+        group = ActionGroupNames.MESSAGE,
         description = "发送消息")
 public class InsertUserMessageServiceImpl implements Service {
 

@@ -1,5 +1,6 @@
 package com.team.user.service;
 
+import com.team.config.ActionGroupNames;
 import com.team.config.ActionNames;
 import com.team.user.entity.FriendEntity;
 import com.team.user.entity.UserEntity;
@@ -24,6 +25,7 @@ import java.util.List;
         parametersConfigs = {UserEntity.class},
         response = true,
         page = true,
+        group = ActionGroupNames.FRIEND,
         description = "查找当前用户的好友")
 public class InquireFriendServiceImpl implements Service {
 

@@ -4,7 +4,7 @@ import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.RColumnConfig;
 import com.wolf.framework.dao.annotation.RDaoConfig;
-import com.wolf.framework.data.DataTypeEnum;
+import com.wolf.framework.data.BasicTypeEnum;
 import com.wolf.framework.service.parameter.Parameter;
 import com.wolf.framework.service.parameter.ParameterConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
@@ -21,23 +21,23 @@ import java.util.Map;
 @ParametersConfig()
 public class MessageEntity extends Entity implements Parameter {
 
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "消息id")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.UUID, desc = "消息id")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "消息id")
     private String messageId;
     //
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "发送用户id")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.UUID, desc = "发送用户id")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "发送用户id")
     private String sendId;
     //
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "接收用户id")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.UUID, desc = "接收用户id")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "接收用户id")
     private String receiveId;
     //
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_255, desc = "消息内容")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_255, desc = "消息内容")
     @RColumnConfig(desc = "消息内容")
     private String message;
     //
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.DATE_TIME, desc = "创建时间")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.DATE_TIME, desc = "创建时间")
     @RColumnConfig(desc = "创建时间")
     private String createTime;
 

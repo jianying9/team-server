@@ -1,7 +1,8 @@
 package com.team.user.service;
 
+import com.team.config.ActionGroupNames;
 import com.team.config.ActionNames;
-import com.team.config.ResponseFlagEnum;
+import com.team.config.TeamResponseFlags;
 import com.team.user.entity.UserEntity;
 import com.team.user.localservice.UserLocalService;
 import com.wolf.framework.local.InjectLocalService;
@@ -17,14 +18,15 @@ import java.util.Map;
  */
 @ServiceConfig(
         actionName = ActionNames.REGISTER,
-parameterTypeEnum = ParameterTypeEnum.PARAMETER,
-importantParameter = {"nickName", "userEmail", "password"},
-returnParameter = {"userId", "userEmail"},
-parametersConfigs = {UserEntity.class},
-validateSession = false,
-response = true,
-requireTransaction = true,
-description = "用户注册:FAILURE_USER_EMAIL_USED-邮箱已经被使用")
+        parameterTypeEnum = ParameterTypeEnum.PARAMETER,
+        importantParameter = {"nickName", "userEmail", "password"},
+        returnParameter = {"userId", "userEmail"},
+        parametersConfigs = {UserEntity.class},
+        validateSession = false,
+        response = true,
+        requireTransaction = true,
+        group = ActionGroupNames.USER,
+        description = "用户注册:FAILURE_USER_EMAIL_USED-邮箱已经被使用")
 public class RegisterServiceImpl implements Service {
 
     @InjectLocalService()
@@ -39,7 +41,7 @@ public class RegisterServiceImpl implements Service {
             boolean isUserEmailExists = this.userLocalService.isUserEmailExist(userEmail);
             if (isUserEmailExists) {
                 //邮箱已经被使用
-                messageContext.setFlag(ResponseFlagEnum.FAILURE_USER_EMAIL_USED);
+                messageContext.setFlag(TeamResponseFlags.FAILURE_USER_EMAIL_USED);
             } else {
                 //新增加用户
                 UserEntity userEntity = this.userLocalService.insertUser(parameterMap);

@@ -4,7 +4,7 @@ import com.wolf.framework.dao.Entity;
 import com.wolf.framework.dao.annotation.ColumnTypeEnum;
 import com.wolf.framework.dao.annotation.RColumnConfig;
 import com.wolf.framework.dao.annotation.RDaoConfig;
-import com.wolf.framework.data.DataTypeEnum;
+import com.wolf.framework.data.BasicTypeEnum;
 import com.wolf.framework.service.parameter.Parameter;
 import com.wolf.framework.service.parameter.ParameterConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
@@ -21,23 +21,23 @@ import java.util.Map;
 @ParametersConfig()
 public class UserEntity extends Entity implements Parameter {
 
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "用户id")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.UUID, desc = "用户id")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.KEY, desc = "用户ID")
     private String userId;
     //
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_32, desc = "昵称")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_32, desc = "昵称")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "昵称")
     private String nickName;
     //
     @RColumnConfig(desc = "密码md5")
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_32, desc = "密码md5")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_32, desc = "密码md5")
     private String password;
     //
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.CHAR_60, desc = "邮箱")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.CHAR_60, desc = "邮箱")
     @RColumnConfig(columnTypeEnum = ColumnTypeEnum.INDEX, desc = "邮箱")
     private String userEmail;
     //
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.DATE_TIME, desc = "注册时间")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.DATE_TIME, desc = "注册时间")
     @RColumnConfig(desc = "注册时间")
     private long createTime;
 

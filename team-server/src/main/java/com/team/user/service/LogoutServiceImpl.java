@@ -1,7 +1,8 @@
 package com.team.user.service;
 
+import com.team.config.ActionGroupNames;
 import com.team.config.ActionNames;
-import com.team.config.ResponseFlagEnum;
+import com.team.config.TeamResponseFlags;
 import com.team.user.entity.FriendEntity;
 import com.team.user.entity.UserEntity;
 import com.team.user.localservice.UserLocalService;
@@ -27,6 +28,7 @@ import java.util.List;
         sessionHandleTypeEnum = SessionHandleTypeEnum.REMOVE,
         response = true,
         broadcast = true,
+        group = ActionGroupNames.USER,
         description = "用户退出")
 public class LogoutServiceImpl implements Service {
 
@@ -39,7 +41,7 @@ public class LogoutServiceImpl implements Service {
         String userId = session.getUserId();
         UserEntity userEntity = this.userLocalService.inquireUserByUserId(userId);
         if (userEntity == null) {
-            messageContext.setFlag(ResponseFlagEnum.FAILURE_USER_ID_NOT_EXIST);
+            messageContext.setFlag(TeamResponseFlags.FAILURE_USER_ID_NOT_EXIST);
         } else {
             //通知好友
             List<FriendEntity> friendEntityList = this.userLocalService.inquireFriendByUserId(userId, 1, 100);

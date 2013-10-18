@@ -1,7 +1,7 @@
 package com.team.session.entity;
 
 import com.wolf.framework.dao.Entity;
-import com.wolf.framework.data.DataTypeEnum;
+import com.wolf.framework.data.BasicTypeEnum;
 import com.wolf.framework.service.parameter.ParameterConfig;
 import com.wolf.framework.service.parameter.ParametersConfig;
 import java.util.HashMap;
@@ -17,15 +17,15 @@ import java.util.Map;
 @ParametersConfig()
 public class SessionEntity extends Entity {
 
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.UUID, desc = "sessionId")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.UUID, desc = "sessionId")
     private String sessionId;
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.LONG, desc = "用户id")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.LONG, desc = "用户id")
     private String userId;
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.INT, desc = "客户端类型:1:web,2:mobile,3:desktop")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.INT, desc = "客户端类型:1:web,2:mobile,3:desktop")
     private int type;
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.DATE_TIME, desc = "创建时间")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.DATE_TIME, desc = "创建时间")
     private long createTime;
-    @ParameterConfig(dateTypeEnum = DataTypeEnum.DATE_TIME, desc = "失效时间,默认为创建时间+30天")
+    @ParameterConfig(basicTypeEnum = BasicTypeEnum.DATE_TIME, desc = "失效时间,默认为创建时间+30天")
     private long invalidTime;
 
     public String getSessionId() {

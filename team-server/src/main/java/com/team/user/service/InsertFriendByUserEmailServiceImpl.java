@@ -1,7 +1,8 @@
 package com.team.user.service;
 
+import com.team.config.ActionGroupNames;
 import com.team.config.ActionNames;
-import com.team.config.ResponseFlagEnum;
+import com.team.config.TeamResponseFlags;
 import com.team.user.entity.UserEntity;
 import com.team.user.localservice.UserLocalService;
 import com.wolf.framework.local.InjectLocalService;
@@ -22,6 +23,7 @@ import com.wolf.framework.worker.context.MessageContext;
         returnParameter = {"nickName", "userId"},
         parametersConfigs = {UserEntity.class},
         response = true,
+        group = ActionGroupNames.FRIEND,
         description = "根据userEmail增加好友")
 public class InsertFriendByUserEmailServiceImpl implements Service {
 
@@ -34,20 +36,20 @@ public class InsertFriendByUserEmailServiceImpl implements Service {
         UserEntity friendUserEntity = this.userLocalService.inquireUserByUserEmail(userEmail);
         if (friendUserEntity == null) {
             //邮箱不存在
-            messageContext.setFlag(ResponseFlagEnum.FAILURE_EMAIL_NOT_EXIST);
+            messageContext.setFlag(TeamResponseFlags.FAILURE_EMAIL_NOT_EXIST);
         } else {
             Session session = messageContext.getSession();
             String userId = session.getUserId();
             String friendId = friendUserEntity.getUserId();
             if (userId.equals(friendId)) {
                 //不能添加自己为好友
-                messageContext.setFlag(ResponseFlagEnum.FAILURE_ADD_FRIEND_MYSELF);
+                messageContext.setFlag(TeamResponseFlags.FAILURE_ADD_FRIEND_MYSELF);
             } else {
                 //好友的userId存在
                 synchronized (this) {
                     boolean flag = this.userLocalService.isFriendIdExist(userId, friendId);
                     if (flag) {
-                        messageContext.setFlag(ResponseFlagEnum.FAILURE_FRIEND_EXIST);
+                        messageContext.setFlag(TeamResponseFlags.FAILURE_FRIEND_EXIST);
                     } else {
                         this.userLocalService.insertFriend(userId, friendId);
                         messageContext.setEntityData(friendUserEntity);
